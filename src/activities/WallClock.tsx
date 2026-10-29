@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from 'react'
 import { sound } from '../services/sound'
 import { speech } from '../services/speech'
 import { SuccessCelebration } from '../components/SuccessCelebration'
-import { pickRandom, GENERAL_PRAISES, GENERAL_RETRIES } from '../services/voiceFeedback'
+import { pickRandom, TIME_PRAISES, GENERAL_RETRIES } from '../services/voiceFeedback'
 
 interface Props {
   onComplete: () => void
@@ -208,7 +208,7 @@ const ROUND_3_POOL: ClockQuestion[] = [
   {
     promptTitle: 'Las 8 y diez',
     spokenPrompt: '¿Qué reloj marca las ocho y diez de la mañana?',
-    contextNote: '🥐 La aguja larga roja apunta al número 2',
+    contextNote: '🥐 Desayuno con calma antes de salir',
     emoji: '🥐',
     target: { hours: 8, minutes: 10 },
     distractors: [
@@ -220,7 +220,7 @@ const ROUND_3_POOL: ClockQuestion[] = [
   {
     promptTitle: 'Las 5 y veinte',
     spokenPrompt: '¿Qué reloj marca las cinco y veinte de la tarde?',
-    contextNote: '🍪 La aguja larga roja apunta al número 4',
+    contextNote: '🍪 Merienda a media tarde',
     emoji: '🍪',
     target: { hours: 5, minutes: 20 },
     distractors: [
@@ -232,7 +232,7 @@ const ROUND_3_POOL: ClockQuestion[] = [
   {
     promptTitle: 'Las 10 menos diez',
     spokenPrompt: '¿Qué reloj marca las diez menos diez de la mañana?',
-    contextNote: '🛒 Faltan diez minutos para las diez',
+    contextNote: '🛒 Salir a hacer las compras al mercado',
     emoji: '🛒',
     target: { hours: 9, minutes: 50 },
     distractors: [
@@ -244,7 +244,7 @@ const ROUND_3_POOL: ClockQuestion[] = [
   {
     promptTitle: 'Las 7 menos veinte',
     spokenPrompt: '¿Qué reloj marca las siete menos veinte de la tarde?',
-    contextNote: '🌳 La aguja larga roja apunta al número 8',
+    contextNote: '🌳 Paseo tranquilo antes de volver a casa',
     emoji: '🌳',
     target: { hours: 6, minutes: 40 },
     distractors: [
@@ -256,7 +256,7 @@ const ROUND_3_POOL: ClockQuestion[] = [
   {
     promptTitle: 'Las 11 y diez',
     spokenPrompt: '¿Qué reloj marca las once y diez de la mañana?',
-    contextNote: '📰 Diez minutos pasados de las once',
+    contextNote: '📰 Momento de ojear el periódico con calma',
     emoji: '📰',
     target: { hours: 11, minutes: 10 },
     distractors: [
@@ -268,7 +268,7 @@ const ROUND_3_POOL: ClockQuestion[] = [
   {
     promptTitle: 'La 1 y veinte',
     spokenPrompt: '¿Qué reloj marca la una y veinte del mediodía?',
-    contextNote: '🥖 Veinte minutos pasados de la una',
+    contextNote: '🥖 Preparar la mesa para la comida',
     emoji: '🥖',
     target: { hours: 1, minutes: 20 },
     distractors: [
@@ -280,7 +280,7 @@ const ROUND_3_POOL: ClockQuestion[] = [
   {
     promptTitle: 'Las 4 menos diez',
     spokenPrompt: '¿Qué reloj marca las cuatro menos diez de la tarde?',
-    contextNote: '🛋️ Faltan diez minutos para las cuatro',
+    contextNote: '🛋️ Descanso en el salón',
     emoji: '🛋️',
     target: { hours: 3, minutes: 50 },
     distractors: [
@@ -515,12 +515,7 @@ export function WallClock({ onComplete, onExit }: Props) {
     setFeedback('')
     isAdvancingRef.current = false
 
-    const timer = setTimeout(() => {
-      speech.speak(q.spokenPrompt)
-    }, 250)
-
     return () => {
-      clearTimeout(timer)
       speech.stop()
     }
   }, [roundIdx, questions])
@@ -537,7 +532,7 @@ export function WallClock({ onComplete, onExit }: Props) {
     if (key === timeKey(currentQ.target)) {
       isAdvancingRef.current = true
       sound.playSuccess()
-      const praise = pickRandom(GENERAL_PRAISES)
+      const praise = pickRandom(TIME_PRAISES)
       setFeedback(praise)
 
       let hasAdv = false

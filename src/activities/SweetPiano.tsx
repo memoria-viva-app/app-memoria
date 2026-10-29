@@ -90,43 +90,17 @@ export function SweetPiano({ onComplete, onExit }: Props) {
     isInputLockedRef.current = false
     setIsPlayingSeq(false)
     setFeedback('¡Te toca!')
-    const turnVoice = pickRandom(SWEET_PIANO_VOICES.turn)
-    speech.speak(turnVoice)
   }
 
-  const playSequence = (seq: number[], announceRound = true) => {
+  const playSequence = (seq: number[], _announceRound = true) => {
     isInputLockedRef.current = true
     setIsPlayingSeq(true)
     setFeedback('Escucha las notas...')
 
-    let started = false
-    const triggerNotes = () => {
-      if (started) return
-      started = true
-      playNotesAfterVoice(seq)
-    }
-
-    if (!announceRound) {
-      // Replay without repeating the round announcement
-      triggerNotes()
-      return
-    }
-
-    const noteCountText = seq.length === 1 ? '1 nota' : `${seq.length} notas`
-    const introText =
-      seq.length === 4
-        ? 'Ronda 4. ¡Aparece la tecla verde! Escucha las 4 notas.'
-        : `Ronda ${seq.length}. Escucha ${noteCountText}.`
-
-    const introDuration = speech.estimateDurationMs(introText)
-    speech.speak(introText, () => {
-      triggerNotes()
-    })
-
-    // Safety fallback adapted to intro speech duration
+    // Play notes directly after brief pause without reading intro text
     setTimeout(() => {
-      triggerNotes()
-    }, introDuration + 2000)
+      playNotesAfterVoice(seq)
+    }, 350)
   }
 
   const startRound = (roundNum: number) => {

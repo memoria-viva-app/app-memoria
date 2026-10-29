@@ -179,15 +179,8 @@ export function DailyCoins({ onComplete, onExit }: Props) {
     setIsSuccess(false)
     isAdvancingRef.current = false
 
-    // Clean voice narration with 250ms delay ensuring DOM ready and browser audio unlocked
-    const timer = setTimeout(() => {
-      speech.speak(
-        `${currentItem.name}. Cuesta ${currentItem.priceLabel}. Junta exactamente ${currentItem.requiredCoinCount} monedas para pagar el total.`
-      )
-    }, 250)
-
+    // Feedback text is shown on screen; no audio reading of the prompt
     return () => {
-      clearTimeout(timer)
       speech.stop()
     }
   }, [roundIdx, sessionItems])
@@ -211,7 +204,7 @@ export function DailyCoins({ onComplete, onExit }: Props) {
       setFeedback(
         `Ya tienes ${currentItem.requiredCoinCount} monedas. Toca una moneda puesta para quitarla.`
       )
-      speech.speak(`Ya tienes ${currentItem.requiredCoinCount} monedas. Toca una moneda puesta si quieres cambiarla.`)
+      speech.speak('Bandeja completa. Quita una moneda para cambiarla.')
       return
     }
 

@@ -3,7 +3,7 @@ import { Check } from 'lucide-react'
 import { sound } from '../services/sound'
 import { speech } from '../services/speech'
 import { SuccessCelebration } from '../components/SuccessCelebration'
-import { pickRandom, GENERAL_PRAISES, GENERAL_RETRIES } from '../services/voiceFeedback'
+import { pickRandom, ORIENTATION_PRAISES, GENERAL_RETRIES } from '../services/voiceFeedback'
 
 interface Props {
   onComplete: () => void
@@ -201,17 +201,7 @@ export function FourSeasons({ onComplete, onExit }: Props) {
     setWrongPick(null)
     isAdvancingRef.current = false
 
-    let prompt = ''
-    if (roundIdx === 0) prompt = `${r1Card.title}. ¿En qué estación del año ocurre?`
-    else if (roundIdx === 1) prompt = `${r2Card.title}. ¿En qué estación del año cae?`
-    else if (roundIdx === 2)
-      prompt = 'Tres de estas cosas son de la misma estación y una se ha colado. ¿Cuál es el intruso?'
-    else if (roundIdx === 3) prompt = r4Question.spoken
-    else prompt = 'Última ronda. Toca una tarjeta y después la estación donde va. Coloca las cuatro.'
-
-    const timer = setTimeout(() => speech.speak(prompt), 250)
     return () => {
-      clearTimeout(timer)
       speech.stop()
     }
   }, [roundIdx, r1Card, r2Card, r4Question])
@@ -219,7 +209,7 @@ export function FourSeasons({ onComplete, onExit }: Props) {
   const advanceNext = (extraMsg = '') => {
     isAdvancingRef.current = true
     sound.playSuccess()
-    const praise = pickRandom(GENERAL_PRAISES)
+    const praise = pickRandom(ORIENTATION_PRAISES)
     const text = extraMsg ? `${extraMsg} ${praise}` : praise
     setFeedback(text)
 
@@ -236,8 +226,8 @@ export function FourSeasons({ onComplete, onExit }: Props) {
         }
       }, 500)
     }
-    const dur = speech.estimateDurationMs(text)
-    speech.speak(text, go)
+    const dur = speech.estimateDurationMs(praise)
+    speech.speak(praise, go)
     setTimeout(go, dur + 2200)
   }
 
@@ -291,7 +281,6 @@ export function FourSeasons({ onComplete, onExit }: Props) {
     if (!r5SelectedId) {
       sound.playTap()
       setFeedback('Primero toca una de las tarjetas de abajo.')
-      speech.speak('Primero toca una de las tarjetas de abajo.')
       return
     }
     const card = r5Cards.find((c) => c.id === r5SelectedId)

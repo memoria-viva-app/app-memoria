@@ -133,7 +133,7 @@ const HIT_PRAISES = [
   (name: string) => `¡Eso es! Has metido ${name} en la cesta.`,
   (name: string) => `¡Estupendo! Teníamos apuntado ${name}.`,
   (name: string) => `¡Perfecto! Justo estaba en la lista: ${name}.`,
-  (name: string) => `¡Muy bien visto! ${name} ya está en la bolsa.`,
+  (name: string) => `¡Muy bien recordado! ${name} ya está en la bolsa.`,
 ]
 
 // Rotating gentle audio feedback on mistake
@@ -187,13 +187,7 @@ export function ShoppingList({ onComplete, onExit }: Props) {
     setTargetItems(targets)
     setDisplayItems(combined)
 
-    const names = targets.map((t) => t.name).join(', ')
-    const timer = setTimeout(() => {
-      speech.speak(currentTexts.memorizeSpeech(names))
-    }, 250)
-
     return () => {
-      clearTimeout(timer)
       speech.stop()
     }
   }, [roundIdx])
@@ -202,7 +196,6 @@ export function ShoppingList({ onComplete, onExit }: Props) {
     if (isAdvancingRef.current) return
     sound.playTap()
     setPhase('recall')
-    speech.speak(currentTexts.recallSpeech)
   }
 
   const handleSelectProduct = (product: Product) => {
@@ -244,7 +237,7 @@ export function ShoppingList({ onComplete, onExit }: Props) {
           setTimeout(advance, completeDuration + 2500)
         } else {
           // Speak a brief warm confirmation for this item
-          speech.speak(`¡Muy bien, ${product.name}!`)
+          speech.speak('¡Muy bien!')
         }
       }
     } else {

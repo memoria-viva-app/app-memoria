@@ -3,7 +3,7 @@ import { Check } from 'lucide-react'
 import { sound } from '../services/sound'
 import { speech } from '../services/speech'
 import { SuccessCelebration } from '../components/SuccessCelebration'
-import { pickRandom, GENERAL_PRAISES, GENERAL_RETRIES } from '../services/voiceFeedback'
+import { pickRandom, VISUAL_PRAISES, VISUAL_RETRIES } from '../services/voiceFeedback'
 
 interface Props {
   onComplete: () => void
@@ -121,11 +121,6 @@ export function DominoMatch({ onComplete, onExit }: Props) {
       setWinningIds([winner.id])
       setPromptText(`Ficha con el número ${targetNum}`)
       setSubText(`Toca la ficha que tiene ${targetNum} puntos en uno de sus lados`)
-      setTimeout(() => {
-        speech.speak(
-          `Ronda 1. Para seguir la partida, toca la ficha que tiene ${targetNum} puntos en un lado.`
-        )
-      }, 250)
     } else if (rIdx === 1) {
       // Round 2: Find the tile whose two halves sum to targetSum (4, 5, 6, or 7) among 4 tiles
       const targetSum = [4, 5, 6, 7][Math.floor(Math.random() * 4)]
@@ -136,11 +131,6 @@ export function DominoMatch({ onComplete, onExit }: Props) {
       setWinningIds([winner.id])
       setPromptText(`Suma total: ${targetSum} puntos`)
       setSubText(`Toca la ficha cuyos puntos suman ${targetSum} en total`)
-      setTimeout(() => {
-        speech.speak(
-          `Ronda 2. Cuenta los puntos y toca la ficha que suma exactamente ${targetSum} puntos.`
-        )
-      }, 250)
     } else if (rIdx === 2) {
       // Round 3: Find the tile whose two halves sum to a higher targetSum (8, 9, 10, or 11) among 6 tiles
       const targetSum = [8, 9, 10, 11][Math.floor(Math.random() * 4)]
@@ -151,11 +141,6 @@ export function DominoMatch({ onComplete, onExit }: Props) {
       setWinningIds([winner.id])
       setPromptText(`Suma total: ${targetSum} puntos`)
       setSubText(`Toca la ficha cuyos puntos suman ${targetSum} en total`)
-      setTimeout(() => {
-        speech.speak(
-          `Ronda 3. Busca entre las 6 fichas la que suma exactamente ${targetSum} puntos.`
-        )
-      }, 250)
     } else {
       // Round 4: Pick the 2 tiles that each sum to targetEach (4, 5, 6, or 7) among 6 tiles
       const targetEach = [4, 5, 6, 7][Math.floor(Math.random() * 4)]
@@ -168,13 +153,6 @@ export function DominoMatch({ onComplete, onExit }: Props) {
       setSubText(
         `Toca las 2 fichas que suman ${targetEach} puntos cada una (juntas suman ${targetEach * 2})`
       )
-      setTimeout(() => {
-        speech.speak(
-          `Última ronda. Toca las 2 fichas que tienen ${targetEach} puntos cada una, para juntar ${
-            targetEach * 2
-          } puntos.`
-        )
-      }, 250)
     }
   }
 
@@ -194,7 +172,7 @@ export function DominoMatch({ onComplete, onExit }: Props) {
 
       if (next.length === winningIds.length) {
         isAdvancingRef.current = true
-        const praise = pickRandom(GENERAL_PRAISES)
+        const praise = pickRandom(VISUAL_PRAISES)
         setFeedback(`🁢 ¡Jugada maestra! (${tile.a} + ${tile.b} = ${tile.a + tile.b})`)
 
         let hasAdv = false
@@ -215,14 +193,14 @@ export function DominoMatch({ onComplete, onExit }: Props) {
         speech.speak(praise, advance)
         setTimeout(advance, dur + 2200)
       } else {
-        setFeedback('¡Bien! Ya tienes la primera ficha. Busca la segunda.')
-        speech.speak('¡Muy bien! Ahora toca la segunda ficha.')
+        setFeedback('¡Bien visto! Ya tienes la primera ficha. Busca la segunda.')
+        speech.speak('¡Muy bien visto! Ahora toca la segunda ficha.')
       }
     } else {
       sound.playGentleRetry()
       const sum = tile.a + tile.b
       setFeedback(`Esa ficha tiene ${tile.a} y ${tile.b} (suman ${sum}). Prueba otra.`)
-      speech.speak(pickRandom(GENERAL_RETRIES))
+      speech.speak(pickRandom(VISUAL_RETRIES))
     }
   }
 

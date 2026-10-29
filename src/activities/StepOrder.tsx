@@ -541,13 +541,7 @@ export function StepOrder({ onComplete, onExit }: Props) {
     setFeedback('')
     setIsSuccess(false)
 
-    const timer = setTimeout(() => {
-      const introVoice = pickRandom(STEP_ORDER_VOICES.firstStep)(task.title)
-      speech.speak(introVoice)
-    }, 250)
-
     return () => {
-      clearTimeout(timer)
       speech.stop()
     }
   }, [roundIdx, selectedTasks])
@@ -598,7 +592,7 @@ export function StepOrder({ onComplete, onExit }: Props) {
       } else {
         const nextPrompt = pickRandom(STEP_ORDER_VOICES.nextStep)(nextTarget)
         setFeedback(nextPrompt)
-        speech.speak(nextPrompt)
+        speech.speak('¡Muy bien!')
       }
     } else {
       sound.playGentleRetry()

@@ -107,9 +107,6 @@ export function MemoryPairs({ onComplete, onExit }: Props) {
     setMatchedKeys([])
     setIsLocked(false)
     setIsSuccess(false)
-
-    const introVoice = pickRandom(MEMORY_PAIRS_VOICES.intro)
-    speech.speak(introVoice)
   }
 
   useEffect(() => {

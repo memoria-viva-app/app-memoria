@@ -158,11 +158,6 @@ export function WhereWasIt({ onComplete, onExit }: Props) {
     setFeedback('')
     setIsSuccess(false)
     isAdvancingRef.current = false
-
-    addTimeout(() => {
-      const introVoice = pickRandom(WHERE_WAS_IT_VOICES.intro)(total, count)
-      speech.speak(introVoice)
-    }, 250)
   }
 
   const initGame = () => {
@@ -200,25 +195,20 @@ export function WhereWasIt({ onComplete, onExit }: Props) {
 
     const totalRevealTime = (revealOrder.length + 1) * 150
 
-    // 2. Once all flipped cards are revealed, start voice locution & adapt reverse hiding to speech duration
+    // 2. Once all flipped cards are revealed, hold them visible then hide in reverse order
     addTimeout(() => {
-      const explanationVoice = pickRandom(WHERE_WAS_IT_VOICES.showing)(currentConfig.flippedCount)
-      const voiceDuration = speech.estimateDurationMs(explanationVoice)
-
       let transitioned = false
       const transitionToGuessing = () => {
         if (transitioned) return
         transitioned = true
         setVisibleRevealedSlots([])
         setPhase('guessing')
-        const guessingPrompt = pickRandom(WHERE_WAS_IT_VOICES.guessing)(estaba, currentItem.name)
-        speech.speak(guessingPrompt)
       }
 
-      // 3. While the locution is being spoken, keep cards open during the first half, then hide in REVERSE order
+      // Keep cards open for memorization, then hide in reverse order
       const reverseOrder = [...revealOrder].reverse()
-      const startHideAt = Math.max(1200, Math.floor(voiceDuration * 0.45))
-      const stepHideInterval = Math.max(260, Math.floor((voiceDuration * 0.50) / Math.max(1, reverseOrder.length)))
+      const startHideAt = 2200
+      const stepHideInterval = 280
       const lastHideTime = startHideAt + reverseOrder.length * stepHideInterval
 
       reverseOrder.forEach((slotIdx, i) => {
@@ -228,27 +218,9 @@ export function WhereWasIt({ onComplete, onExit }: Props) {
         }, startHideAt + i * stepHideInterval)
       })
 
-      let voiceDone = false
-      let hideDone = false
-
-      const checkReadyToGuess = () => {
-        if (voiceDone && hideDone) {
-          transitionToGuessing()
-        }
-      }
-
-      speech.speak(explanationVoice, () => {
-        voiceDone = true
-        checkReadyToGuess()
-      })
-
       addTimeout(() => {
-        hideDone = true
-        checkReadyToGuess()
-      }, lastHideTime)
-
-      // Safety fallback adapted to the speech duration
-      addTimeout(transitionToGuessing, Math.max(voiceDuration, lastHideTime) + 2200)
+        transitionToGuessing()
+      }, lastHideTime + 200)
     }, totalRevealTime)
   }
 

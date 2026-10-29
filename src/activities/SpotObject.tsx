@@ -115,8 +115,6 @@ export function SpotObject({ onComplete, onExit }: Props) {
 
       timerRef.current = window.setTimeout(() => {
         setPhase('guessing')
-        const guessingPhrase = pickRandom(SPOT_OBJECT_VOICES.guessing)
-        speech.speak(guessingPhrase)
       }, viewDuration)
 
       return 'showing'
@@ -136,24 +134,10 @@ export function SpotObject({ onComplete, onExit }: Props) {
     setIsSuccess(false)
     isAdvancingRef.current = false
 
-    const introPhrase = pickRandom(SPOT_OBJECT_VOICES.intro)(count)
-    const introDuration = speech.estimateDurationMs(introPhrase)
-
-    // Initial 250ms buffer ensuring DOM is mounted
+    // Initial buffer before showing cards without speaking on-screen text
     timerRef.current = window.setTimeout(() => {
-      // Step 1: Varied voice intro - wait for full locution before revealing cards
-      speech.speak(introPhrase, () => {
-        // Step 2: brief pause after voice ends, then show cards
-        timerRef.current = window.setTimeout(() => {
-          revealCards(roundNum)
-        }, 300)
-      })
-
-      // Safety fallback timer adapted to the actual duration of the intro locution
-      fallbackRef.current = window.setTimeout(() => {
-        revealCards(roundNum)
-      }, introDuration + 2200)
-    }, 250)
+      revealCards(roundNum)
+    }, 350)
   }
 
   useEffect(() => {

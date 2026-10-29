@@ -3,7 +3,7 @@ import { Eye } from 'lucide-react'
 import { sound } from '../services/sound'
 import { speech } from '../services/speech'
 import { SuccessCelebration } from '../components/SuccessCelebration'
-import { pickRandom, GENERAL_PRAISES, GENERAL_RETRIES } from '../services/voiceFeedback'
+import { pickRandom, VISUAL_PRAISES, VISUAL_RETRIES } from '../services/voiceFeedback'
 
 interface Props {
   onComplete: () => void
@@ -19,24 +19,10 @@ interface RoundConfig {
 }
 
 const ROUNDS: RoundConfig[] = [
-  { cupCount: 3, ballCount: 1, swaps: 3, swapMs: 850, label: '3 vasos · Movimiento suave' },
-  { cupCount: 3, ballCount: 1, swaps: 5, swapMs: 650, label: '3 vasos · Más rápido' },
-  { cupCount: 4, ballCount: 1, swaps: 6, swapMs: 580, label: '4 vasos · 1 bolita' },
-  { cupCount: 4, ballCount: 2, swaps: 6, swapMs: 580, label: '4 vasos · 2 bolitas' },
-]
-
-const INTRO_PHRASES_SINGLE = [
-  'Mira bien debajo de qué vaso está la bolita roja. Cuando estés listo, pulsa el botón verde para mezclar.',
-  'Fíjate en el vaso levantado con la bolita. Pulsa el botón verde para taparla y mover los vasos.',
-  'Abre bien los ojos: ahí tienes la bolita roja. Dale al botón verde cuando quieras que empiecen a cruzarse.',
-  'No pierdas de vista el vaso que guarda la bolita. Toca el botón verde para empezar a mezclar.',
-  'Atención a la mesa: memoriza dónde está la bolita y pulsa el botón para mover los cubiletes.',
-]
-
-const INTRO_PHRASES_DOUBLE = [
-  '¡Gran reto final! Ahora hay 2 bolitas escondidas. Fíjate bien en los dos vasos y pulsa el botón para mezclar.',
-  'Última ronda con 2 bolitas rojas. Mira bien en qué dos vasos están y dale al botón verde.',
-  'Doble atención: tenemos 2 bolitas en la mesa. Grábate sus dos vasos y pulsa el botón para moverlos.',
+  { cupCount: 3, ballCount: 1, swaps: 3, swapMs: 900, label: '3 vasos · Movimiento suave' },
+  { cupCount: 3, ballCount: 1, swaps: 4, swapMs: 750, label: '3 vasos · Un poco más vivo' },
+  { cupCount: 4, ballCount: 1, swaps: 5, swapMs: 680, label: '4 vasos · 1 bolita' },
+  { cupCount: 4, ballCount: 2, swaps: 4, swapMs: 850, label: '4 vasos · 2 bolitas · Ritmo suave' },
 ]
 
 const SHUFFLE_BANNERS = [
@@ -102,15 +88,6 @@ export function ShellGame({ onComplete, onExit }: Props) {
     setFoundCups([])
     setFeedback('')
     setPhase('ready')
-
-    const t = window.setTimeout(() => {
-      const msg =
-        cfg.ballCount === 1
-          ? pickRandom(INTRO_PHRASES_SINGLE)
-          : pickRandom(INTRO_PHRASES_DOUBLE)
-      speech.speak(`Ronda ${rIdx + 1}. ${msg}`)
-    }, 250)
-    timersRef.current.push(t)
   }
 
   useEffect(() => {
@@ -169,7 +146,6 @@ export function ShellGame({ onComplete, onExit }: Props) {
           ? pickRandom(GUESS_PROMPTS_SINGLE)
           : pickRandom(GUESS_PROMPTS_DOUBLE)
       setFeedback(prompt)
-      speech.speak(prompt)
     }, endTime)
     timersRef.current.push(endTimer)
   }
@@ -190,7 +166,7 @@ export function ShellGame({ onComplete, onExit }: Props) {
       if (nextFound.length === config.ballCount) {
         isAdvancingRef.current = true
         setPhase('round-won')
-        const praise = pickRandom(GENERAL_PRAISES)
+        const praise = pickRandom(VISUAL_PRAISES)
         setFeedback(praise)
 
         let hasAdvanced = false
@@ -218,7 +194,7 @@ export function ShellGame({ onComplete, onExit }: Props) {
       }
     } else {
       sound.playGentleRetry()
-      const retry = pickRandom(GENERAL_RETRIES)
+      const retry = pickRandom(VISUAL_RETRIES)
       setFeedback('En ese vaso no estaba. Prueba con otro.')
       speech.speak(retry)
       const lowerTimer = window.setTimeout(() => {

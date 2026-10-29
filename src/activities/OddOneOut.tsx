@@ -254,27 +254,9 @@ export function OddOneOut({ onComplete, onExit }: Props) {
     setVisibleCardIds([])
     isAdvancingRef.current = false
 
-    const introVoice = pickRandom(ODD_ONE_OUT_VOICES.intro)(currentRound.family.category)
-    const estimatedMs = speech.estimateDurationMs(introVoice)
+    // Reveal cards directly without reading the instruction text
     const allCardIds = currentRound.cards.map((c) => c.id)
-    const shuffledIds = [...allCardIds].sort(() => 0.5 - Math.random())
-
-    // Pace card flips across the duration of the intro locution so they finish right with the voice
-    const stepDelay = Math.max(250, Math.floor((estimatedMs * 0.78) / Math.max(1, shuffledIds.length)))
-
-    shuffledIds.forEach((cardId, idx) => {
-      addTimeout(() => {
-        sound.playTap()
-        setVisibleCardIds((prev) => (prev.includes(cardId) ? prev : [...prev, cardId]))
-      }, 200 + idx * stepDelay)
-    })
-
-    addTimeout(() => {
-      speech.speak(introVoice, () => {
-        // Ensure all cards are revealed as soon as the voice finishes
-        setVisibleCardIds(allCardIds)
-      })
-    }, 200)
+    setVisibleCardIds(allCardIds)
 
     return () => {
       clearAllTimeouts()

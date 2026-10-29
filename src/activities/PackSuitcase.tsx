@@ -3,7 +3,7 @@ import { Check } from 'lucide-react'
 import { sound } from '../services/sound'
 import { speech } from '../services/speech'
 import { SuccessCelebration } from '../components/SuccessCelebration'
-import { pickRandom, GENERAL_PRAISES } from '../services/voiceFeedback'
+import { pickRandom, ORGANIZATION_PRAISES } from '../services/voiceFeedback'
 
 interface Props {
   onComplete: () => void
@@ -22,12 +22,6 @@ interface Scenario {
   correctItems: PackItem[]
   wrongItems: PackItem[]
 }
-
-const INTRO_VOICES = [
-  (title: string, n: number) => `${title}. Toca las ${n} cosas que necesitamos llevar.`,
-  (title: string, n: number) => `Nos preparamos para: ${title}. Elige ${n} objetos adecuados.`,
-  (title: string, n: number) => `Vamos con: ${title}. Señala los ${n} dibujos que nos hacen falta.`,
-]
 
 // 12 escenarios variados con amplios catálogos de objetos e iconos 100% universales
 const SCENARIOS: Scenario[] = [
@@ -283,13 +277,7 @@ export function PackSuitcase({ onComplete, onExit }: Props) {
     setFeedback('')
     isAdvancingRef.current = false
 
-    const timer = setTimeout(() => {
-      const voiceFn = pickRandom(INTRO_VOICES)
-      speech.speak(voiceFn(sc.title, cfg.needed))
-    }, 250)
-
     return () => {
-      clearTimeout(timer)
       speech.stop()
     }
   }, [roundIdx, sessionScenarios])
@@ -310,7 +298,7 @@ export function PackSuitcase({ onComplete, onExit }: Props) {
 
       if (next.length === currentCfg.needed) {
         isAdvancingRef.current = true
-        const praise = pickRandom(GENERAL_PRAISES)
+        const praise = pickRandom(ORGANIZATION_PRAISES)
         setFeedback(praise)
 
         let hasAdv = false
@@ -331,12 +319,12 @@ export function PackSuitcase({ onComplete, onExit }: Props) {
         speech.speak(praise, advance)
         setTimeout(advance, dur + 2200)
       } else {
-        speech.speak(`¡Muy bien! ${item.name}.`)
+        speech.speak('¡Muy bien!')
       }
     } else {
       sound.playGentleRetry()
       setFeedback(`${item.name} no hace falta para ${currentScenario.title.toLowerCase()}.`)
-      speech.speak(`No necesitamos ${item.name} para esto. Prueba con otro dibujo.`)
+      speech.speak('Ese objeto no hace falta. Prueba con otro.')
     }
   }
 

@@ -3,7 +3,7 @@ import { Phone, Eye } from 'lucide-react'
 import { sound } from '../services/sound'
 import { speech } from '../services/speech'
 import { SuccessCelebration } from '../components/SuccessCelebration'
-import { pickRandom, GENERAL_PRAISES } from '../services/voiceFeedback'
+import { pickRandom, MEMORY_PRAISES } from '../services/voiceFeedback'
 
 interface Props {
   onComplete: () => void
@@ -43,21 +43,6 @@ const CONTACTS: ContactInfo[] = [
   { name: 'La Cafetería de la plaza', emoji: '☕' },
 ]
 
-const MEMORIZE_VOICES = [
-  (name: string, len: number, digits: string) =>
-    `Vamos a llamar a ${name}. Recuerda este número de ${len} cifras: ${digits}. Pulsa el botón verde cuando estés listo.`,
-  (name: string, len: number, digits: string) =>
-    `Toca telefonear a ${name}. Memoriza sus ${len} números en orden: ${digits}. Dale al botón verde cuando te lo sepas.`,
-  (name: string, len: number, digits: string) =>
-    `Llamada para ${name}. Fíjate bien en las ${len} cifras: ${digits}. Pulsa el botón cuando las tengas en mente.`,
-]
-
-const DIAL_VOICES = [
-  (len: number) => `Marca en orden las ${len} cifras del teléfono.`,
-  (len: number) => `Ahora pulsa los ${len} números en el teclado en el mismo orden.`,
-  (len: number) => `¿Te acuerdas del número? Marca las ${len} cifras una por una.`,
-]
-
 const ROUND_LENGTHS = [3, 4, 5, 6]
 
 function generatePhoneDigits(len: number): number[] {
@@ -83,24 +68,17 @@ export function HomePhone({ onComplete, onExit }: Props) {
 
   const contact = sessionContacts[roundIdx] || CONTACTS[0]
 
-  const setupRound = (rIdx: number, contactsPool = sessionContacts) => {
+  const setupRound = (rIdx: number) => {
     isAdvancingRef.current = false
     const len = ROUND_LENGTHS[rIdx] || 3
     const digits = generatePhoneDigits(len)
-    const pickedContact = contactsPool[rIdx] || CONTACTS[0]
 
     setTargetDigits(digits)
     setDialedDigits([])
     setFeedback('')
     setPhase('memorize')
 
-    const spokenDigits = digits.join(', ')
-    const timer = setTimeout(() => {
-      const voiceFn = pickRandom(MEMORIZE_VOICES)
-      speech.speak(voiceFn(pickedContact.name, len, spokenDigits))
-    }, 250)
-
-    return () => clearTimeout(timer)
+    return () => {}
   }
 
   useEffect(() => {
@@ -115,15 +93,11 @@ export function HomePhone({ onComplete, onExit }: Props) {
     sound.playTap()
     setPhase('dial')
     setFeedback('')
-    const dialFn = pickRandom(DIAL_VOICES)
-    speech.speak(dialFn(targetDigits.length))
   }
 
   const handlePeekNumber = () => {
     sound.playTap()
     setPhase('memorize')
-    const spokenDigits = targetDigits.join(', ')
-    speech.speak(`Aquí tienes el número otra vez: ${spokenDigits}.`)
   }
 
   const handlePressDigit = (digit: number) => {
@@ -142,7 +116,7 @@ export function HomePhone({ onComplete, onExit }: Props) {
       if (nextDialed.length === targetDigits.length) {
         isAdvancingRef.current = true
         setTimeout(() => sound.playSuccess(), 220)
-        const praise = pickRandom(GENERAL_PRAISES)
+        const praise = pickRandom(MEMORY_PRAISES)
         setFeedback(`📞 ¡Llamando a ${contact.name}! ${praise}`)
 
         let hasAdv = false
@@ -166,7 +140,7 @@ export function HomePhone({ onComplete, onExit }: Props) {
     } else {
       setTimeout(() => sound.playGentleRetry(), 160)
       setFeedback(`Esa cifra no toca ahora. Prueba otra o pulsa "Ver".`)
-      speech.speak('Esa no era la cifra siguiente. Prueba con otra o mira el número de nuevo.')
+      speech.speak('Prueba otra vez.')
     }
   }
 
@@ -261,17 +235,42 @@ export function HomePhone({ onComplete, onExit }: Props) {
               </div>
             )}
 
-            {/* Giant Numeric Keypad */}
-            <div className="grid grid-cols-5 grid-rows-2 gap-2 sm:gap-3 flex-1 min-h-0 w-full">
-              {[1, 2, 3, 4, 5, 6, 7, 8, 9, 0].map((num) => (
+            {/* Giant Numeric Keypad in authentic telephone 3-column layout */}
+            <div className="grid grid-cols-3 grid-rows-4 gap-2 sm:gap-3 flex-1 min-h-0 w-full max-w-xs sm:max-w-sm md:max-w-md mx-auto">
+              {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((num) => (
                 <button
                   key={num}
+                  type="button"
                   onClick={() => handlePressDigit(num)}
-                  className="w-full h-full min-h-0 bg-stone-50 hover:bg-emerald-50 active:bg-emerald-200 border-3 sm:border-4 border-stone-300 hover:border-emerald-500 rounded-2xl sm:rounded-3xl shadow-sm flex items-center justify-center font-black text-4xl sm:text-6xl md:text-7xl text-stone-950 cursor-pointer transition-all active:scale-95"
+                  className="w-full h-full min-h-0 bg-stone-50 hover:bg-emerald-50 active:bg-emerald-200 border-3 sm:border-4 border-stone-300 hover:border-emerald-500 rounded-2xl sm:rounded-3xl shadow-sm flex items-center justify-center font-black text-3xl sm:text-5xl md:text-6xl text-stone-950 cursor-pointer transition-all active:scale-95 select-none"
                 >
                   {num}
                 </button>
               ))}
+
+              {/* Row 4: * (decorative/telephone key), 0 (interactive digit), # (decorative/telephone key) */}
+              <div
+                aria-hidden="true"
+                className="w-full h-full min-h-0 bg-stone-100/60 border-2 sm:border-3 border-stone-200 rounded-2xl sm:rounded-3xl flex items-center justify-center font-black text-3xl sm:text-4xl text-stone-300 select-none cursor-default"
+              >
+                *
+              </div>
+
+              <button
+                key={0}
+                type="button"
+                onClick={() => handlePressDigit(0)}
+                className="w-full h-full min-h-0 bg-stone-50 hover:bg-emerald-50 active:bg-emerald-200 border-3 sm:border-4 border-stone-300 hover:border-emerald-500 rounded-2xl sm:rounded-3xl shadow-sm flex items-center justify-center font-black text-3xl sm:text-5xl md:text-6xl text-stone-950 cursor-pointer transition-all active:scale-95 select-none"
+              >
+                0
+              </button>
+
+              <div
+                aria-hidden="true"
+                className="w-full h-full min-h-0 bg-stone-100/60 border-2 sm:border-3 border-stone-200 rounded-2xl sm:rounded-3xl flex items-center justify-center font-black text-2xl sm:text-3xl text-stone-300 select-none cursor-default"
+              >
+                #
+              </div>
             </div>
           </div>
         )}

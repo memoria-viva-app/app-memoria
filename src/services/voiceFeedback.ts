@@ -14,6 +14,119 @@ export function pickRandom<T>(items: T[], lastPicked?: T): T {
 }
 
 // -------------------------------------------------------------
+// PRAISES ADAPTADOS POR TIPO DE JUEGO (Memoria, Agudeza Visual, Lenguaje, etc.)
+// -------------------------------------------------------------
+
+/** 1. MEMORIA: Juegos de retención visual, espacial, auditiva o semántica (Parejas, ¿Dónde estaba?, La Compra, El Teléfono, Caras y Nombres) */
+export const MEMORY_PRAISES = [
+  '¡Qué memoria tan despierta tienes!',
+  '¡Memoria fantástica! Te acordaste perfectamente.',
+  '¡Impresionante! Tienes una memoria maravillosa.',
+  '¡Exacto! Lo has recordado a la perfección.',
+  '¡Qué gran retención! No se te escapa un detalle.',
+  '¡Bravo! Tu memoria funciona como un reloj suizo.',
+  '¡Estupendo! Te has acordado sin dudarlo.',
+  '¡Memoria prodigiosa! Lo recordaste enseguida.',
+  '¡Genial! Tienes la cabeza despejada y muy despierta.',
+  '¡Qué bien te acuerdas! Da gusto ver tu memoria.',
+]
+
+/** 2. AGUDEZA VISUAL Y ATENCIÓN: Rastreo visual, discriminación de formas y puntos, seguimiento de movimiento (El Trilero, Buscar Objeto, El Dominó) */
+export const VISUAL_PRAISES = [
+  '¡Qué vista de lince tienes!',
+  '¡Qué buen ojo! Lo has visto al instante.',
+  '¡Atención de primera! No se te escapa nada.',
+  '¡En el blanco! Qué agudeza visual tan buena.',
+  '¡Magnífico! Has seguido el movimiento con gran precisión.',
+  '¡Excelente reflejo visual! Muy bien localizado.',
+  '¡Bravo! Tienes una concentración visual impecable.',
+  '¡Bien visto! Tus ojos no fallan una.',
+  '¡Qué rapidez para localizarlo con la mirada!',
+  '¡Impecable! Tienes un ojo clínico para los detalles.',
+]
+
+/** 3. LENGUAJE Y VOCABULARIO: Formación de palabras, sílabas, refranes y coplas (Palabras Partidas, Refranes, Canciones) */
+export const LANGUAGE_PRAISES = [
+  '¡Qué riqueza de vocabulario tienes!',
+  '¡Qué sabiduría de palabras! Muy bien formado.',
+  '¡Excelente dominio del lenguaje!',
+  '¡Perfecto! Qué gran agilidad con las letras.',
+  '¡Qué bien te sabes las palabras y expresiones!',
+  '¡Bravo! Has encontrado la palabra con gran soltura.',
+  '¡Estupendo! Se nota que disfrutas con el lenguaje.',
+  '¡Impecable! Qué buen manejo de las palabras.',
+  '¡Qué destreza con las letras y el vocabulario!',
+  '¡Fantástico! Se nota tu amor por las palabras bien dichas.',
+]
+
+/** 4. LÓGICA, DÍA A DÍA Y RAZONAMIENTO: Categorización, resolución de situaciones cotidianas (El Intruso, Primero y Después) */
+export const LOGIC_PRAISES = [
+  '¡Muy bien pensado! Razonamiento de primera.',
+  '¡Lógica impecable! Todo encaja como debe ser.',
+  '¡Qué gran sentido común y buen juicio!',
+  '¡Exacto! Bien pensado y bien deducido.',
+  '¡Impecable! Da gusto ver qué bien razonas.',
+  '¡Qué mente tan clara y ordenada!',
+  '¡Perfecto! Has resuelto la situación con gran acierto.',
+  '¡Excelente deducción! Todo en su sitio.',
+  '¡Brillante! Has razonado a las mil maravillas.',
+  '¡Qué buena cabeza! Todo tiene sentido.',
+]
+
+/** 5. ORIENTACIÓN TEMPORAL Y ESTACIONES: Comprensión del calendario, ciclos y estaciones (Las Estaciones) */
+export const ORIENTATION_PRAISES = [
+  '¡Conoces el calendario y las estaciones al dedillo!',
+  '¡Excelente! Sabes perfectamente el ritmo del año.',
+  '¡Muy bien orientado! Cada estación en su momento.',
+  '¡Perfecto! Qué bien conoces los meses y sus costumbres.',
+  '¡Qué buena orientación en el calendario de toda la vida!',
+  '¡Exacto! No se te despista ni un mes ni una fiesta.',
+  '¡Estupendo! El paso de las estaciones no tiene secretos para ti.',
+]
+
+/** 6. EL RELOJ Y LA HORA: Lectura de agujas y cálculo de horas (El Reloj) */
+export const TIME_PRAISES = [
+  '¡Hora clavada! Lees las agujas del reloj de maravilla.',
+  '¡Qué precisión con el reloj! Orientación en el tiempo impecable.',
+  '¡Exacto! El reloj de agujas no tiene secretos para ti.',
+  '¡Excelente cálculo de la hora!',
+  '¡Perfecto! Qué bien dominas las horas y los cuartos.',
+  '¡Puntualidad suiza! Has clavado la hora a la primera.',
+  '¡Muy bien visto en la esfera del reloj!',
+]
+
+/** 7. ORGANIZACIÓN Y ORDEN DEL HOGAR: Guardar y ordenar espacios y maletas (Ordenar la Casa, La Maleta) */
+export const ORGANIZATION_PRAISES = [
+  '¡Todo en su sitio! Qué orden tan estupendo.',
+  '¡Qué sentido del orden! La casa queda impecable.',
+  '¡Muy bien organizado! Cada cosa en su lugar adecuado.',
+  '¡Excelente criterio de organización!',
+  '¡Qué gusto da verlo todo tan bien recogido!',
+  '¡Organización de diez! Nada fuera de su sitio.',
+  '¡Perfectamente ordenado! Cada objeto en su rincón.',
+]
+
+/** 8. CÁLCULO NUMÉRICO Y MONEDAS: Manejo de dinero y sumas (Las Monedas) */
+export const CALCULATION_PRAISES = [
+  '¡Cuenta perfecta! Clavado al céntimo.',
+  '¡Qué agilidad para el cálculo mental!',
+  '¡Impecable! Tu monedero no falla una cuenta.',
+  '¡Excelente cálculo! Justo el precio exacto.',
+  '¡Qué bien hechas las cuentas! Ni un céntimo de más ni de menos.',
+  '¡Manejo del dinero impecable!',
+]
+
+/** 9. CONOCIMIENTO Y MEMORIA CULTURAL DE ESPAÑA (Viaje por España) */
+export const SPAIN_PRAISES = [
+  '¡Qué gran conocimiento y memoria de España tienes!',
+  '¡Conoces nuestros pueblos y ciudades como la palma de la mano!',
+  '¡Qué sabiduría de nuestras costumbres y tradiciones!',
+  '¡Viajero de primera! No se te escapa un rincón de España.',
+  '¡Excelente! Sabes de dónde es típico cada rincón y plato.',
+  '¡Qué orgullo de memoria geográfica y cultural!',
+]
+
+// -------------------------------------------------------------
 // GENERAL PRAISE & CELEBRATION (Used across activities)
 // -------------------------------------------------------------
 export const GENERAL_PRAISES = [
@@ -29,6 +142,30 @@ export const GENERAL_PRAISES = [
   '¡Muy bien pensado! Todo en su sitio.',
   '¡Impresionante! Qué memoria tan despierta.',
   '¡Genial! Se nota que estás concentrado.',
+]
+
+// -------------------------------------------------------------
+// REINTENTOS ADAPTADOS POR TIPO DE JUEGO
+// -------------------------------------------------------------
+
+export const MEMORY_RETRIES = [
+  'Tómate tu tiempo. Haz memoria con calma y elige de nuevo.',
+  'Sin prisa. Recuerda la imagen con tranquilidad y vuelve a probar.',
+  'No te preocupes. Con calma se recuerda mejor, prueba otra vez.',
+  'Casi casi. Piensa en dónde lo viste y vuelve a intentarlo.',
+]
+
+export const VISUAL_RETRIES = [
+  'Abre bien los ojos. Mira con atención y tranquilidad.',
+  'Sin prisa. Observa cada detalle y vuelve a probar.',
+  'Casi lo tienes. Fíjate despacio en las diferencias.',
+  'No pasa nada. Mira con calma toda la mesa y elige de nuevo.',
+]
+
+export const LOGIC_RETRIES = [
+  'Piénsalo con tranquilidad. Seguro que encuentras la relación.',
+  'Sin prisa. Fíjate en cómo encaja cada cosa y vuelve a probar.',
+  'Casi lo tienes. Reflexiona un instante y elige otra opción.',
 ]
 
 // -------------------------------------------------------------

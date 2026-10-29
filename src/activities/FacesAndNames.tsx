@@ -336,12 +336,11 @@ export function FacesAndNames({ onComplete, onExit }: Props) {
 
   const currentTarget = sessionTargets[round] || sessionTargets[0]
 
-  const presentFaceAndFlip = (targetPerson: Person) => {
+  const presentFaceAndFlip = (_targetPerson: Person) => {
     setIsCardFlipped(false)
     setPhase('memorize')
 
-    const introVoice = pickRandom(FACES_AND_NAMES_VOICES.intro)(targetPerson.name)
-    const introDuration = Math.max(2200, speech.estimateDurationMs(introVoice))
+    const introDuration = 3500
     setViewDurationMs(introDuration)
 
     let hasFlipped = false
@@ -350,48 +349,18 @@ export function FacesAndNames({ onComplete, onExit }: Props) {
       hasFlipped = true
       sound.playTap()
       setIsCardFlipped(true)
-      addTimeout(() => {
-        const playVoice = pickRandom(FACES_AND_NAMES_VOICES.playPrompt)
-        speech.speak(playVoice)
-      }, 550)
     }
 
-    addTimeout(() => {
-      speech.speak(introVoice, () => {
-        addTimeout(flipCard, 250)
-      })
-    }, 150)
-
-    // Safety fallback adapted to the duration of the intro locution
-    addTimeout(flipCard, introDuration + 1800)
+    // Flip the card after viewing time without reading on-screen text
+    addTimeout(flipCard, introDuration)
   }
 
-  const triggerRecall = (choicesList: Person[], targetPerson: Person) => {
+  const triggerRecall = (choicesList: Person[], _targetPerson: Person) => {
     clearAllTimeouts()
     setPhase('recall')
-    setVisibleIndices([])
 
-    const guessingVoice = pickRandom(FACES_AND_NAMES_VOICES.guessing)(targetPerson.name)
-    const guessingDuration = speech.estimateDurationMs(guessingVoice)
     const allIndices = Array.from({ length: choicesList.length }, (_, i) => i)
-    const randomizedRevealOrder = shuffle(allIndices)
-
-    // Pace face reveals across the duration of the guessing locution
-    const delayBetween = Math.max(
-      180,
-      Math.floor((guessingDuration * 0.78) / Math.max(1, choicesList.length))
-    )
-
-    randomizedRevealOrder.forEach((slotIdx, step) => {
-      addTimeout(() => {
-        sound.playTap()
-        setVisibleIndices((prev) => (prev.includes(slotIdx) ? prev : [...prev, slotIdx]))
-      }, 150 + step * delayBetween)
-    })
-
-    speech.speak(guessingVoice, () => {
-      setVisibleIndices(allIndices)
-    })
+    setVisibleIndices(allIndices)
   }
 
   // Configure choices and synchronize viewing duration with intro locution before card flips

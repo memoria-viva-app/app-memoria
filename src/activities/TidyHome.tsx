@@ -3,7 +3,7 @@ import { Check } from 'lucide-react'
 import { sound } from '../services/sound'
 import { speech } from '../services/speech'
 import { SuccessCelebration } from '../components/SuccessCelebration'
-import { pickRandom, GENERAL_PRAISES } from '../services/voiceFeedback'
+import { pickRandom, ORGANIZATION_PRAISES } from '../services/voiceFeedback'
 
 interface Props {
   onComplete: () => void
@@ -22,12 +22,6 @@ interface RoomPlace {
   correctItems: HomeItem[]
   wrongItems: HomeItem[]
 }
-
-const INTRO_VOICES = [
-  (t: string, n: number) => `${t}. Toca las ${n} cosas que se guardan aquí.`,
-  (t: string, n: number) => `Vamos a ordenar: ${t}. Elige los ${n} objetos que van en este sitio.`,
-  (t: string, n: number) => `¿Qué guardamos en ${t.toLowerCase()}? Señala ${n} dibujos.`,
-]
 
 // 10 lugares cotidianos de la casa con 6-7 objetos correctos y 6-7 incorrectos cada uno
 const PLACES: RoomPlace[] = [
@@ -243,13 +237,7 @@ export function TidyHome({ onComplete, onExit }: Props) {
     setFeedback('')
     isAdvancingRef.current = false
 
-    const timer = setTimeout(() => {
-      const voiceFn = pickRandom(INTRO_VOICES)
-      speech.speak(voiceFn(place.title, cfg.needed))
-    }, 250)
-
     return () => {
-      clearTimeout(timer)
       speech.stop()
     }
   }, [roundIdx, sessionPlaces])
@@ -270,7 +258,7 @@ export function TidyHome({ onComplete, onExit }: Props) {
 
       if (next.length === currentCfg.needed) {
         isAdvancingRef.current = true
-        const praise = pickRandom(GENERAL_PRAISES)
+        const praise = pickRandom(ORGANIZATION_PRAISES)
         setFeedback(praise)
 
         let hasAdv = false
@@ -291,12 +279,12 @@ export function TidyHome({ onComplete, onExit }: Props) {
         speech.speak(praise, advance)
         setTimeout(advance, dur + 2200)
       } else {
-        speech.speak(`¡Bien! ${item.name}.`)
+        speech.speak('¡Muy bien!')
       }
     } else {
       sound.playGentleRetry()
       setFeedback(`${item.name} no se guarda en ${currentPlace.title.toLowerCase()}.`)
-      speech.speak(`Eso no se guarda en ${currentPlace.title.toLowerCase()}. Prueba con otro objeto.`)
+      speech.speak('Eso no va en esta habitación. Prueba con otro.')
     }
   }
 

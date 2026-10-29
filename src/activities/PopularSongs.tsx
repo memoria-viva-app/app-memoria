@@ -53,13 +53,6 @@ const E = Q / 2 // corchea
 const H = Q * 2 // blanca
 const DQ = Q * 1.5 // negra con puntillo
 
-const SONG_INTRO_PHRASES = [
-  '¿Cómo sigue esta famosa canción?',
-  '¿Recuerdas cómo continúa la letra?',
-  '¿Cómo sigue la canción?',
-  'Seguro que te sabes esta canción. ¿Cómo continúa?',
-]
-
 const SONG_CONGRATS = [
   '¡Muy bien! ¡Qué buena memoria musical!',
   '¡Eso es! ¡Te la sabes estupendamente!',
@@ -69,14 +62,14 @@ const SONG_CONGRATS = [
   '¡Estupendo! ¡Muy bien hecho!',
 ]
 
-// 26 canciones populares españolas e infantiles tradicionales con melodías EXACTAS y 100% verificadas
+// 7 canciones populares tradicionales de España con letras y melodías verificadas
 const SONGS_POOL: SongItem[] = [
   {
     title: 'Cumpleaños Feliz',
     emoji: '🎂',
-    verseStart: '«Cumpleaños feliz, cumpleaños feliz, te deseamos a...»',
-    correctWord: '...ti',
-    distractors: ['...mí', '...él', '...todos', '...ella'],
+    verseStart: '«Cumpleaños feliz, cumpleaños feliz, te deseamos...»',
+    correctWord: '...todos',
+    distractors: ['...pocos', '...siempre', '...juntos', '...muchos'],
     melody: [
       { freq: N.G4, dur: DQ * 0.5 }, { freq: N.G4, dur: E * 0.5 }, { freq: N.A4, dur: Q }, { freq: N.G4, dur: Q }, { freq: N.C5, dur: Q }, { freq: N.B4, dur: H },
       { freq: N.G4, dur: DQ * 0.5 }, { freq: N.G4, dur: E * 0.5 }, { freq: N.A4, dur: Q }, { freq: N.G4, dur: Q }, { freq: N.D5, dur: Q }, { freq: N.C5, dur: H },
@@ -87,9 +80,9 @@ const SONGS_POOL: SongItem[] = [
   {
     title: 'Estrellita, ¿Dónde Estás?',
     emoji: '⭐',
-    verseStart: '«Estrellita, ¿dónde estás? Me pregunto qué...»',
-    correctWord: '...serás',
-    distractors: ['...harás', '...dirás', '...verás', '...tendrás'],
+    verseStart: '«Estrellita, ¿dónde estás? En el cielo o en el...»',
+    correctWord: '...mar',
+    distractors: ['...aire', '...bosque', '...viento', '...río'],
     melody: [
       { freq: N.C4, dur: Q }, { freq: N.C4, dur: Q }, { freq: N.G4, dur: Q }, { freq: N.G4, dur: Q }, { freq: N.A4, dur: Q }, { freq: N.A4, dur: Q }, { freq: N.G4, dur: H },
       { freq: N.F4, dur: Q }, { freq: N.F4, dur: Q }, { freq: N.E4, dur: Q }, { freq: N.E4, dur: Q }, { freq: N.D4, dur: Q }, { freq: N.D4, dur: Q }, { freq: N.C4, dur: H },
@@ -100,9 +93,9 @@ const SONGS_POOL: SongItem[] = [
   {
     title: 'Martinillo',
     emoji: '🔔',
-    verseStart: '«Martinillo, Martinillo, ¿dónde estás? ¿Dónde estás? Toca la...»',
-    correctWord: '...campana',
-    distractors: ['...guitarra', '...trompeta', '...ventana', '...pandereta'],
+    verseStart: '«Martinillo, el campanero, ¿duerme usted? ¿Duerme usted? Toca la campana: din, dan...»',
+    correctWord: '...don',
+    distractors: ['...dan', '...din', '...pam', '...clic'],
     melody: [
       { freq: N.C4, dur: Q }, { freq: N.D4, dur: Q }, { freq: N.E4, dur: Q }, { freq: N.C4, dur: Q },
       { freq: N.C4, dur: Q }, { freq: N.D4, dur: Q }, { freq: N.E4, dur: Q }, { freq: N.C4, dur: Q },
@@ -117,9 +110,9 @@ const SONGS_POOL: SongItem[] = [
   {
     title: 'La Cucaracha',
     emoji: '💃',
-    verseStart: '«La cucaracha, la cucaracha, ya no puede...»',
-    correctWord: '...caminar',
-    distractors: ['...descansar', '...madrugar', '...trabajar', '...pasear'],
+    verseStart: '«La cucaracha, la cucaracha, ya no puede caminar, porque no tiene, porque le falta las dos patitas de...»',
+    correctWord: '...atrás',
+    distractors: ['...delante', '...arriba', '...abajo', '...un lado'],
     melody: [
       { freq: N.C4, dur: E * 0.7 }, { freq: N.C4, dur: E * 0.7 }, { freq: N.C4, dur: E * 0.7 }, { freq: N.F4, dur: DQ }, { freq: N.A4, dur: Q },
       { freq: N.C4, dur: E * 0.7 }, { freq: N.C4, dur: E * 0.7 }, { freq: N.C4, dur: E * 0.7 }, { freq: N.F4, dur: DQ }, { freq: N.A4, dur: H },
@@ -160,11 +153,11 @@ const SONGS_POOL: SongItem[] = [
     ],
   },
   {
-    title: 'Navidad, Navidad',
+    title: 'Dulce Navidad',
     emoji: '🎄',
-    verseStart: '«Navidad, Navidad, hoy es Navidad, es un día de alegría y...»',
-    correctWord: '...felicidad',
-    distractors: ['...bondad', '...amistad', '...libertad', '...verdad'],
+    verseStart: '«Navidad, Navidad, dulce Navidad, la alegría de este día hay que...»',
+    correctWord: '...celebrar',
+    distractors: ['...olvidar', '...empezar', '...descansar', '...dibujar'],
     melody: [
       { freq: N.E4, dur: Q }, { freq: N.E4, dur: Q }, { freq: N.E4, dur: H },
       { freq: N.E4, dur: Q }, { freq: N.E4, dur: Q }, { freq: N.E4, dur: H },
@@ -173,337 +166,6 @@ const SONGS_POOL: SongItem[] = [
       { freq: N.F4, dur: Q }, { freq: N.E4, dur: Q }, { freq: N.E4, dur: Q }, { freq: N.E4, dur: E }, { freq: N.E4, dur: E },
       { freq: N.E4, dur: Q }, { freq: N.D4, dur: Q }, { freq: N.D4, dur: Q }, { freq: N.E4, dur: Q },
       { freq: N.D4, dur: H }, { freq: N.G4, dur: H },
-    ],
-  },
-  {
-    title: 'Debajo de un Botón',
-    emoji: '🔘',
-    verseStart: '«Debajo de un botón, ton, ton, que encontró...»',
-    correctWord: '...Martín',
-    distractors: ['...Fermín', '...Joaquín', '...Crispín', '...Agustín'],
-    melody: [
-      { freq: N.C4, dur: E }, { freq: N.D4, dur: E }, { freq: N.E4, dur: E }, { freq: N.F4, dur: E }, { freq: N.G4, dur: Q }, { freq: N.G4, dur: Q }, { freq: N.G4, dur: H },
-      { freq: N.A4, dur: E }, { freq: N.F4, dur: E }, { freq: N.G4, dur: E }, { freq: N.E4, dur: E }, { freq: N.F4, dur: Q }, { freq: N.F4, dur: Q }, { freq: N.F4, dur: H },
-      { freq: N.C4, dur: E }, { freq: N.D4, dur: E }, { freq: N.E4, dur: E }, { freq: N.F4, dur: E }, { freq: N.G4, dur: Q }, { freq: N.G4, dur: Q }, { freq: N.G4, dur: H },
-      { freq: N.F4, dur: E }, { freq: N.E4, dur: E }, { freq: N.D4, dur: E }, { freq: N.C4, dur: E }, { freq: N.D4, dur: Q }, { freq: N.C4, dur: Q }, { freq: N.C4, dur: H },
-    ],
-  },
-  {
-    title: 'El Patio de mi Casa',
-    emoji: '🏡',
-    verseStart: '«El patio de mi casa es particular, cuando llueve se...»',
-    correctWord: '...moja',
-    distractors: ['...limpia', '...llena', '...seca', '...riega'],
-    melody: [
-      { freq: N.G4, dur: E }, { freq: N.G4, dur: E }, { freq: N.G4, dur: E }, { freq: N.E4, dur: E }, { freq: N.C4, dur: E }, { freq: N.E4, dur: E },
-      { freq: N.G4, dur: E }, { freq: N.G4, dur: E }, { freq: N.G4, dur: E }, { freq: N.E4, dur: E }, { freq: N.C4, dur: E }, { freq: N.E4, dur: E },
-      { freq: N.G4, dur: E }, { freq: N.G4, dur: E }, { freq: N.G4, dur: E }, { freq: N.A4, dur: E }, { freq: N.F4, dur: E }, { freq: N.D4, dur: E },
-      { freq: N.F4, dur: E }, { freq: N.F4, dur: E }, { freq: N.F4, dur: E }, { freq: N.G4, dur: E }, { freq: N.E4, dur: E }, { freq: N.C4, dur: H },
-      { freq: N.G4, dur: Q }, { freq: N.G4, dur: H },
-      { freq: N.E4, dur: E }, { freq: N.F4, dur: E }, { freq: N.G4, dur: E }, { freq: N.E4, dur: E }, { freq: N.C4, dur: H },
-    ],
-  },
-  {
-    title: 'Tengo una Muñeca',
-    emoji: '👗',
-    verseStart: '«Tengo una muñeca vestida de...»',
-    correctWord: '...azul',
-    distractors: ['...tul', '...gris', '...sol', '...flor'],
-    melody: [
-      { freq: N.G4, dur: E }, { freq: N.G4, dur: E }, { freq: N.E4, dur: E }, { freq: N.G4, dur: E }, { freq: N.C5, dur: Q }, { freq: N.C5, dur: Q },
-      { freq: N.E5, dur: E }, { freq: N.D5, dur: E }, { freq: N.C5, dur: E }, { freq: N.B4, dur: E }, { freq: N.A4, dur: H },
-      { freq: N.F4, dur: E }, { freq: N.F4, dur: E }, { freq: N.D4, dur: E }, { freq: N.F4, dur: E }, { freq: N.B4, dur: Q }, { freq: N.B4, dur: Q },
-      { freq: N.D5, dur: E }, { freq: N.C5, dur: E }, { freq: N.B4, dur: E }, { freq: N.A4, dur: E }, { freq: N.G4, dur: H },
-      { freq: N.G4, dur: E }, { freq: N.G4, dur: E }, { freq: N.E4, dur: E }, { freq: N.G4, dur: E }, { freq: N.C5, dur: Q }, { freq: N.C5, dur: Q },
-      { freq: N.E5, dur: E }, { freq: N.D5, dur: E }, { freq: N.C5, dur: E }, { freq: N.B4, dur: E }, { freq: N.A4, dur: H },
-      { freq: N.F4, dur: E }, { freq: N.F4, dur: E }, { freq: N.D4, dur: E }, { freq: N.F4, dur: E }, { freq: N.B4, dur: Q }, { freq: N.B4, dur: Q },
-      { freq: N.D5, dur: E }, { freq: N.C5, dur: E }, { freq: N.B4, dur: E }, { freq: N.D5, dur: E }, { freq: N.C5, dur: H },
-    ],
-  },
-  {
-    title: 'La Vaca Lechera',
-    emoji: '🐄',
-    verseStart: '«Tengo una vaca lechera, no es una vaca...»',
-    correctWord: '...cualquiera',
-    distractors: ['...ligera', '...primera', '...viajera', '...pequeña'],
-    melody: [
-      // Ten-go u-na va-ca
-      { freq: N.C4, dur: E }, { freq: N.C4, dur: E }, { freq: N.E4, dur: E }, { freq: N.E4, dur: E }, { freq: N.G4, dur: E }, { freq: N.G4, dur: E },
-      // le-che-ra
-      { freq: N.D4, dur: E }, { freq: N.D4, dur: E }, { freq: N.B3, dur: Q },
-      // no es u-na va-ca
-      { freq: N.C4, dur: E }, { freq: N.C4, dur: E }, { freq: N.E4, dur: E }, { freq: N.E4, dur: E }, { freq: N.G4, dur: E }, { freq: N.G4, dur: E },
-      // cual-quie-ra
-      { freq: N.D4, dur: E }, { freq: N.D4, dur: E }, { freq: N.B3, dur: Q },
-      // me da le-che me-ren-ga-da
-      { freq: N.A4, dur: E }, { freq: N.A4, dur: E }, { freq: N.A4, dur: E }, { freq: N.A4, dur: E }, { freq: N.G4, dur: E }, { freq: N.F4, dur: E }, { freq: N.E4, dur: Q },
-      // ¡ay, qué va-ca tan sa-la-da!
-      { freq: N.G4, dur: E }, { freq: N.G4, dur: E }, { freq: N.G4, dur: E }, { freq: N.G4, dur: E }, { freq: N.F4, dur: E }, { freq: N.E4, dur: E }, { freq: N.D4, dur: Q },
-      // to-lón, to-lón
-      { freq: N.G4, dur: Q }, { freq: N.E4, dur: Q }, { freq: N.G4, dur: Q }, { freq: N.E4, dur: Q },
-      // to-lón, to-lón
-      { freq: N.F4, dur: E }, { freq: N.D4, dur: E }, { freq: N.C4, dur: H },
-    ],
-  },
-  {
-    title: 'Un Elefante',
-    emoji: '🐘',
-    verseStart: '«Un elefante se balanceaba sobre la tela de una...»',
-    correctWord: '...araña',
-    distractors: ['...montaña', '...cabaña', '...castaña', '...campaña'],
-    melody: [
-      { freq: N.C4, dur: Q }, { freq: N.E4, dur: E }, { freq: N.G4, dur: E }, { freq: N.G4, dur: Q }, { freq: N.G4, dur: Q },
-      { freq: N.G4, dur: E }, { freq: N.A4, dur: E }, { freq: N.G4, dur: E }, { freq: N.F4, dur: E }, { freq: N.E4, dur: Q }, { freq: N.D4, dur: H },
-      { freq: N.D4, dur: Q }, { freq: N.F4, dur: E }, { freq: N.A4, dur: E }, { freq: N.A4, dur: Q }, { freq: N.A4, dur: Q },
-      { freq: N.A4, dur: E }, { freq: N.B4, dur: E }, { freq: N.A4, dur: E }, { freq: N.G4, dur: E }, { freq: N.F4, dur: Q }, { freq: N.E4, dur: H },
-      { freq: N.C4, dur: Q }, { freq: N.E4, dur: E }, { freq: N.G4, dur: E }, { freq: N.G4, dur: Q }, { freq: N.G4, dur: Q },
-      { freq: N.G4, dur: E }, { freq: N.A4, dur: E }, { freq: N.G4, dur: E }, { freq: N.F4, dur: E }, { freq: N.E4, dur: Q }, { freq: N.D4, dur: H },
-      { freq: N.D4, dur: Q }, { freq: N.F4, dur: E }, { freq: N.A4, dur: E }, { freq: N.G4, dur: E }, { freq: N.F4, dur: E }, { freq: N.E4, dur: E }, { freq: N.D4, dur: E }, { freq: N.C4, dur: H },
-    ],
-  },
-  {
-    title: 'Asturias, Patria Querida',
-    emoji: '⛰️',
-    verseStart: '«Asturias, patria querida, Asturias de mis...»',
-    correctWord: '...amores',
-    distractors: ['...colores', '...mayores', '...flores', '...dolores'],
-    melody: [
-      { freq: N.G4, dur: Q },
-      { freq: N.C5, dur: H }, { freq: N.E5, dur: E }, { freq: N.D5, dur: E },
-      { freq: N.C5, dur: Q }, { freq: N.B4, dur: H }, { freq: N.D5, dur: E }, { freq: N.C5, dur: E },
-      { freq: N.B4, dur: Q }, { freq: N.A4, dur: H }, { freq: N.C5, dur: E }, { freq: N.B4, dur: E },
-      { freq: N.A4, dur: Q }, { freq: N.G4, dur: H * 1.5 },
-      { freq: N.G4, dur: E }, { freq: N.A4, dur: E }, { freq: N.B4, dur: E }, { freq: N.C5, dur: E }, { freq: N.D5, dur: E }, { freq: N.E5, dur: E },
-      { freq: N.F5, dur: H }, { freq: N.E5, dur: E }, { freq: N.D5, dur: E }, { freq: N.C5, dur: H * 1.5 },
-    ],
-  },
-  {
-    title: 'Al Pasar la Barca',
-    emoji: '⛵',
-    verseStart: '«Al pasar la barca, me dijo el...»',
-    correctWord: '...barquero',
-    distractors: ['...marinero', '...panadero', '...sombrero', '...viajero'],
-    melody: [
-      // Al pa-sar la bar-ca
-      { freq: N.E4, dur: E }, { freq: N.F4, dur: E }, { freq: N.G4, dur: Q }, { freq: N.C5, dur: H },
-      // me di-jo el bar-que-ro
-      { freq: N.A4, dur: E }, { freq: N.A4, dur: E }, { freq: N.A4, dur: Q }, { freq: N.D5, dur: H },
-      // las ni-ñas bo-ni-tas
-      { freq: N.A4, dur: E }, { freq: N.A4, dur: E }, { freq: N.G4, dur: Q }, { freq: N.F4, dur: H },
-      // no pa-gan di-ne-ro
-      { freq: N.E4, dur: E }, { freq: N.F4, dur: E }, { freq: N.G4, dur: Q }, { freq: N.C5, dur: H },
-      // Yo no soy bo-ni-ta
-      { freq: N.E4, dur: E }, { freq: N.F4, dur: E }, { freq: N.G4, dur: Q }, { freq: N.C5, dur: H },
-      // ni lo quie-ro ser
-      { freq: N.A4, dur: E }, { freq: N.A4, dur: E }, { freq: N.A4, dur: Q }, { freq: N.D5, dur: H },
-      // a-rri-ba la bar-ca
-      { freq: N.A4, dur: E }, { freq: N.A4, dur: E }, { freq: N.G4, dur: Q }, { freq: N.F4, dur: H },
-      // u-na, dos y tres
-      { freq: N.E4, dur: Q }, { freq: N.F4, dur: Q }, { freq: N.G4, dur: Q }, { freq: N.C5, dur: H },
-    ],
-  },
-  {
-    title: 'Que Llueva, Que Llueva',
-    emoji: '🌧️',
-    verseStart: '«Que llueva, que llueva, la Virgen de la...»',
-    correctWord: '...Cueva',
-    distractors: ['...Sierra', '...Tierra', '...Estrella', '...Vega'],
-    melody: [
-      // Que llue-va
-      { freq: N.E4, dur: E }, { freq: N.G4, dur: E }, { freq: N.G4, dur: Q },
-      // que llue-va
-      { freq: N.A4, dur: E }, { freq: N.G4, dur: E }, { freq: N.G4, dur: Q },
-      // la Vir-gen de la cue-va
-      { freq: N.E4, dur: E }, { freq: N.G4, dur: E }, { freq: N.F4, dur: E }, { freq: N.G4, dur: E }, { freq: N.A4, dur: E }, { freq: N.G4, dur: Q },
-      // los pa-ja-ri-tos can-tan
-      { freq: N.E4, dur: E }, { freq: N.G4, dur: E }, { freq: N.G4, dur: Q },
-      { freq: N.A4, dur: E }, { freq: N.G4, dur: E }, { freq: N.G4, dur: Q },
-      // las nu-bes se le-van-tan
-      { freq: N.E4, dur: E }, { freq: N.G4, dur: E }, { freq: N.F4, dur: E }, { freq: N.G4, dur: E }, { freq: N.A4, dur: E }, { freq: N.G4, dur: Q },
-      // ¡que sí, que no!
-      { freq: N.A4, dur: Q }, { freq: N.B4, dur: Q }, { freq: N.C5, dur: H },
-      // que cai-ga un cha-pa-rrón
-      { freq: N.G4, dur: E }, { freq: N.A4, dur: E }, { freq: N.G4, dur: E }, { freq: N.F4, dur: E }, { freq: N.E4, dur: H },
-      // con a-zú-car y tu-rrón
-      { freq: N.E4, dur: E }, { freq: N.F4, dur: E }, { freq: N.G4, dur: E }, { freq: N.F4, dur: E }, { freq: N.E4, dur: E }, { freq: N.D4, dur: E }, { freq: N.C4, dur: H },
-    ],
-  },
-  {
-    title: 'Cucú, Cantaba la Rana',
-    emoji: '🐸',
-    verseStart: '«Cucú, cantaba la rana, cucú, debajo del...»',
-    correctWord: '...agua',
-    distractors: ['...árbol', '...puente', '...barco', '...charco'],
-    melody: [
-      { freq: N.G4, dur: Q }, { freq: N.E4, dur: Q }, { freq: N.G4, dur: Q }, { freq: N.E4, dur: Q },
-      { freq: N.G4, dur: E }, { freq: N.G4, dur: E }, { freq: N.F4, dur: E }, { freq: N.E4, dur: E }, { freq: N.D4, dur: H },
-      { freq: N.F4, dur: Q }, { freq: N.D4, dur: Q }, { freq: N.F4, dur: Q }, { freq: N.D4, dur: Q },
-      { freq: N.F4, dur: E }, { freq: N.F4, dur: E }, { freq: N.E4, dur: E }, { freq: N.D4, dur: E }, { freq: N.C4, dur: H },
-      { freq: N.G4, dur: Q }, { freq: N.E4, dur: Q }, { freq: N.G4, dur: Q }, { freq: N.E4, dur: Q },
-      { freq: N.G4, dur: E }, { freq: N.G4, dur: E }, { freq: N.F4, dur: E }, { freq: N.E4, dur: E }, { freq: N.D4, dur: H },
-      { freq: N.F4, dur: Q }, { freq: N.D4, dur: Q }, { freq: N.F4, dur: Q }, { freq: N.D4, dur: Q },
-      { freq: N.F4, dur: E }, { freq: N.F4, dur: E }, { freq: N.E4, dur: E }, { freq: N.D4, dur: E }, { freq: N.C4, dur: H },
-    ],
-  },
-  {
-    title: 'Campana sobre Campana',
-    emoji: '🔔',
-    verseStart: '«Campana sobre campana, y sobre campana...»',
-    correctWord: '...una',
-    distractors: ['...luna', '...cuna', '...alguna', '...ninguna'],
-    melody: [
-      { freq: N.G4, dur: E }, { freq: N.G4, dur: E }, { freq: N.G4, dur: E }, { freq: N.G4, dur: E }, { freq: N.E4, dur: E }, { freq: N.F4, dur: E }, { freq: N.G4, dur: Q },
-      { freq: N.F4, dur: E }, { freq: N.E4, dur: E }, { freq: N.D4, dur: E }, { freq: N.E4, dur: E }, { freq: N.F4, dur: E }, { freq: N.G4, dur: E }, { freq: N.E4, dur: H },
-      { freq: N.G4, dur: E }, { freq: N.G4, dur: E }, { freq: N.G4, dur: E }, { freq: N.G4, dur: E }, { freq: N.E4, dur: E }, { freq: N.F4, dur: E }, { freq: N.G4, dur: Q },
-      { freq: N.F4, dur: E }, { freq: N.E4, dur: E }, { freq: N.D4, dur: E }, { freq: N.E4, dur: E }, { freq: N.F4, dur: E }, { freq: N.G4, dur: E }, { freq: N.C4, dur: H },
-      { freq: N.E4, dur: Q }, { freq: N.E4, dur: E }, { freq: N.E4, dur: E }, { freq: N.D4, dur: E }, { freq: N.C4, dur: E }, { freq: N.D4, dur: E }, { freq: N.E4, dur: Q },
-      { freq: N.F4, dur: E }, { freq: N.E4, dur: E }, { freq: N.D4, dur: E }, { freq: N.C4, dur: E }, { freq: N.B3, dur: E }, { freq: N.C4, dur: E }, { freq: N.D4, dur: H },
-      { freq: N.E4, dur: Q }, { freq: N.E4, dur: E }, { freq: N.E4, dur: E }, { freq: N.D4, dur: E }, { freq: N.C4, dur: E }, { freq: N.D4, dur: E }, { freq: N.E4, dur: Q },
-    ],
-  },
-  {
-    title: 'Los Peces en el Río',
-    emoji: '🐟',
-    verseStart: '«Pero mira cómo beben los peces en el...»',
-    correctWord: '...río',
-    distractors: ['...frío', '...mar', '...barco', '...lago'],
-    melody: [
-      { freq: N.A4, dur: E }, { freq: N.A4, dur: E }, { freq: N.A4, dur: E }, { freq: N.A4, dur: E }, { freq: N.B4, dur: E }, { freq: N.C5, dur: E }, { freq: N.B4, dur: Q },
-      { freq: N.A4, dur: E }, { freq: N.Gs4, dur: E }, { freq: N.A4, dur: E }, { freq: N.B4, dur: E }, { freq: N.Gs4, dur: Q }, { freq: N.E4, dur: H },
-      { freq: N.A4, dur: E }, { freq: N.A4, dur: E }, { freq: N.A4, dur: E }, { freq: N.A4, dur: E }, { freq: N.B4, dur: E }, { freq: N.C5, dur: E }, { freq: N.B4, dur: Q },
-      { freq: N.A4, dur: E }, { freq: N.Gs4, dur: E }, { freq: N.A4, dur: E }, { freq: N.B4, dur: E }, { freq: N.A4, dur: H },
-      { freq: N.C5, dur: Q }, { freq: N.C5, dur: E }, { freq: N.C5, dur: E }, { freq: N.B4, dur: E }, { freq: N.A4, dur: E }, { freq: N.B4, dur: Q },
-      { freq: N.B4, dur: E }, { freq: N.B4, dur: E }, { freq: N.B4, dur: E }, { freq: N.A4, dur: E }, { freq: N.Gs4, dur: E }, { freq: N.A4, dur: H },
-    ],
-  },
-  {
-    title: 'Cinco Lobitos',
-    emoji: '🐺',
-    verseStart: '«Cinco lobitos tiene la loba, blancos y negros detrás de la...»',
-    correctWord: '...escoba',
-    distractors: ['...alcoba', '...caoba', '...persona', '...paloma'],
-    melody: [
-      { freq: N.G4, dur: E }, { freq: N.E4, dur: E }, { freq: N.E4, dur: E }, { freq: N.E4, dur: E }, { freq: N.G4, dur: H },
-      { freq: N.G4, dur: E }, { freq: N.E4, dur: E }, { freq: N.E4, dur: E }, { freq: N.E4, dur: E }, { freq: N.G4, dur: H },
-      { freq: N.F4, dur: E }, { freq: N.D4, dur: E }, { freq: N.D4, dur: E }, { freq: N.D4, dur: E }, { freq: N.F4, dur: H },
-      { freq: N.F4, dur: E }, { freq: N.D4, dur: E }, { freq: N.D4, dur: E }, { freq: N.D4, dur: E }, { freq: N.F4, dur: H },
-      { freq: N.G4, dur: E }, { freq: N.E4, dur: E }, { freq: N.E4, dur: E }, { freq: N.E4, dur: E }, { freq: N.G4, dur: Q }, { freq: N.G4, dur: Q },
-      { freq: N.F4, dur: E }, { freq: N.D4, dur: E }, { freq: N.D4, dur: E }, { freq: N.D4, dur: E }, { freq: N.F4, dur: Q }, { freq: N.F4, dur: Q },
-      { freq: N.E4, dur: E }, { freq: N.F4, dur: E }, { freq: N.G4, dur: E }, { freq: N.E4, dur: E }, { freq: N.C4, dur: H },
-    ],
-  },
-  {
-    title: 'Quisiera Ser Tan Alta',
-    emoji: '🌙',
-    verseStart: '«Quisiera ser tan alta como la...»',
-    correctWord: '...luna',
-    distractors: ['...espuma', '...torre', '...nube', '...cuna'],
-    melody: [
-      // Qui-sie-ra ser tan al-ta
-      { freq: N.C4, dur: E }, { freq: N.E4, dur: E }, { freq: N.G4, dur: E }, { freq: N.G4, dur: E }, { freq: N.G4, dur: E }, { freq: N.G4, dur: Q },
-      // co-mo la lu-na
-      { freq: N.F4, dur: E }, { freq: N.E4, dur: E }, { freq: N.D4, dur: H },
-      // ¡ay, ay!
-      { freq: N.F4, dur: Q }, { freq: N.F4, dur: Q },
-      // co-mo la lu-na
-      { freq: N.F4, dur: E }, { freq: N.E4, dur: E }, { freq: N.D4, dur: Q }, { freq: N.D4, dur: Q },
-      // co-mo la lu-na
-      { freq: N.E4, dur: E }, { freq: N.D4, dur: E }, { freq: N.C4, dur: H },
-      // Pa-ra ver los sol-da-dos
-      { freq: N.C4, dur: E }, { freq: N.E4, dur: E }, { freq: N.G4, dur: E }, { freq: N.G4, dur: E }, { freq: N.G4, dur: E }, { freq: N.G4, dur: Q },
-      // de Ca-ta-lu-ña
-      { freq: N.F4, dur: E }, { freq: N.E4, dur: E }, { freq: N.D4, dur: H },
-      // ¡ay, ay!
-      { freq: N.F4, dur: Q }, { freq: N.F4, dur: Q },
-      // de Ca-ta-lu-ña
-      { freq: N.F4, dur: E }, { freq: N.E4, dur: E }, { freq: N.D4, dur: Q }, { freq: N.D4, dur: Q },
-      // de Ca-ta-lu-ña
-      { freq: N.E4, dur: E }, { freq: N.D4, dur: E }, { freq: N.C4, dur: H },
-    ],
-  },
-  {
-    title: 'Susanita Tiene un Ratón',
-    emoji: '🐭',
-    verseStart: '«Susanita tiene un ratón, un ratón...»',
-    correctWord: '...chiquitín',
-    distractors: ['...juguetón', '...bailarín', '...dormilón', '...saltarín'],
-    melody: [
-      { freq: N.C4, dur: E }, { freq: N.D4, dur: E }, { freq: N.E4, dur: E }, { freq: N.F4, dur: E }, { freq: N.G4, dur: Q }, { freq: N.E4, dur: E }, { freq: N.C4, dur: DQ },
-      { freq: N.C4, dur: E }, { freq: N.D4, dur: E }, { freq: N.E4, dur: E }, { freq: N.F4, dur: E }, { freq: N.G4, dur: H },
-      { freq: N.F4, dur: E }, { freq: N.G4, dur: E }, { freq: N.A4, dur: E }, { freq: N.F4, dur: E }, { freq: N.E4, dur: E }, { freq: N.F4, dur: E }, { freq: N.G4, dur: E }, { freq: N.E4, dur: E },
-      { freq: N.D4, dur: E }, { freq: N.E4, dur: E }, { freq: N.F4, dur: E }, { freq: N.D4, dur: E }, { freq: N.C4, dur: H },
-    ],
-  },
-  {
-    title: 'Hola, Don Pepito',
-    emoji: '🎩',
-    verseStart: '«¡Hola, Don Pepito! ¡Hola, Don...!»',
-    correctWord: '...José',
-    distractors: ['...Manuel', '...Andrés', '...Miguel', '...Ramón'],
-    melody: [
-      { freq: N.C4, dur: Q }, { freq: N.E4, dur: Q }, { freq: N.G4, dur: Q }, { freq: N.C5, dur: H },
-      { freq: N.C5, dur: Q }, { freq: N.B4, dur: Q }, { freq: N.A4, dur: Q }, { freq: N.G4, dur: H },
-      { freq: N.C4, dur: Q }, { freq: N.E4, dur: Q }, { freq: N.G4, dur: Q }, { freq: N.C5, dur: H },
-      { freq: N.C5, dur: Q }, { freq: N.B4, dur: Q }, { freq: N.A4, dur: Q }, { freq: N.G4, dur: H },
-      { freq: N.G4, dur: Q }, { freq: N.A4, dur: Q }, { freq: N.B4, dur: Q }, { freq: N.C5, dur: H },
-    ],
-  },
-  {
-    title: 'La Gallina Turuleca',
-    emoji: '🐔',
-    verseStart: '«La gallina Turuleca ha puesto un huevo, ha puesto dos, ha puesto...»',
-    correctWord: '...tres',
-    distractors: ['...diez', '...seis', '...más', '...cien'],
-    melody: [
-      { freq: N.C4, dur: E }, { freq: N.C4, dur: E }, { freq: N.E4, dur: E }, { freq: N.E4, dur: E }, { freq: N.G4, dur: E }, { freq: N.G4, dur: E }, { freq: N.C5, dur: Q },
-      { freq: N.B4, dur: E }, { freq: N.A4, dur: E }, { freq: N.G4, dur: E }, { freq: N.F4, dur: E }, { freq: N.E4, dur: E }, { freq: N.D4, dur: E }, { freq: N.C4, dur: H },
-      { freq: N.G4, dur: E }, { freq: N.G4, dur: E }, { freq: N.E4, dur: Q }, { freq: N.G4, dur: E }, { freq: N.G4, dur: E }, { freq: N.E4, dur: H },
-      { freq: N.F4, dur: E }, { freq: N.F4, dur: E }, { freq: N.F4, dur: E }, { freq: N.F4, dur: E }, { freq: N.E4, dur: E }, { freq: N.D4, dur: E }, { freq: N.C4, dur: H },
-    ],
-  },
-  {
-    title: 'En el Coche de Papá',
-    emoji: '🚗',
-    verseStart: '«En el coche de papá nos iremos a...»',
-    correctWord: '...pasear',
-    distractors: ['...trabajar', '...cocinar', '...navegar', '...descansar'],
-    melody: [
-      { freq: N.C4, dur: E }, { freq: N.E4, dur: E }, { freq: N.G4, dur: Q }, { freq: N.G4, dur: Q },
-      { freq: N.C4, dur: E }, { freq: N.E4, dur: E }, { freq: N.G4, dur: Q }, { freq: N.G4, dur: Q },
-      { freq: N.F4, dur: E }, { freq: N.F4, dur: E }, { freq: N.F4, dur: E }, { freq: N.F4, dur: E }, { freq: N.E4, dur: E }, { freq: N.D4, dur: E }, { freq: N.C4, dur: H },
-      { freq: N.C4, dur: E }, { freq: N.E4, dur: E }, { freq: N.G4, dur: Q }, { freq: N.G4, dur: Q },
-      { freq: N.C5, dur: E }, { freq: N.C5, dur: E }, { freq: N.C5, dur: Q },
-      { freq: N.F4, dur: E }, { freq: N.F4, dur: E }, { freq: N.F4, dur: E }, { freq: N.F4, dur: E }, { freq: N.E4, dur: E }, { freq: N.D4, dur: E }, { freq: N.C4, dur: H },
-    ],
-  },
-  {
-    title: 'La Tarara',
-    emoji: '💃',
-    verseStart: '«Tiene la Tarara un vestido blanco, lleno de cascabeles para ir al...»',
-    correctWord: '...campo',
-    distractors: ['...baile', '...parque', '...río', '...pueblo'],
-    melody: [
-      { freq: N.G4, dur: E }, { freq: N.A4, dur: E }, { freq: N.G4, dur: E }, { freq: N.F4, dur: E }, { freq: N.E4, dur: Q }, { freq: N.E4, dur: Q },
-      { freq: N.F4, dur: E }, { freq: N.G4, dur: E }, { freq: N.F4, dur: E }, { freq: N.E4, dur: E }, { freq: N.D4, dur: Q }, { freq: N.D4, dur: Q },
-      { freq: N.G4, dur: E }, { freq: N.A4, dur: E }, { freq: N.G4, dur: E }, { freq: N.F4, dur: E }, { freq: N.E4, dur: Q }, { freq: N.E4, dur: Q },
-      { freq: N.D4, dur: E }, { freq: N.C4, dur: E }, { freq: N.D4, dur: E }, { freq: N.E4, dur: E }, { freq: N.C4, dur: H },
-      { freq: N.G4, dur: Q }, { freq: N.G4, dur: E }, { freq: N.A4, dur: E }, { freq: N.G4, dur: E }, { freq: N.F4, dur: E }, { freq: N.E4, dur: Q },
-      { freq: N.F4, dur: Q }, { freq: N.F4, dur: E }, { freq: N.G4, dur: E }, { freq: N.F4, dur: E }, { freq: N.E4, dur: E }, { freq: N.D4, dur: Q },
-      { freq: N.G4, dur: E }, { freq: N.A4, dur: E }, { freq: N.G4, dur: E }, { freq: N.F4, dur: E }, { freq: N.E4, dur: Q }, { freq: N.E4, dur: Q },
-      { freq: N.D4, dur: E }, { freq: N.C4, dur: E }, { freq: N.D4, dur: E }, { freq: N.E4, dur: E }, { freq: N.C4, dur: H },
-    ],
-  },
-  {
-    title: 'El Señor Don Gato',
-    emoji: '🐱',
-    verseStart: '«Estaba el señor Don Gato sentadito en su...»',
-    correctWord: '...tejado',
-    distractors: ['...balcón', '...sillón', '...jardín', '...rincón'],
-    melody: [
-      { freq: N.G4, dur: E }, { freq: N.G4, dur: E }, { freq: N.G4, dur: E }, { freq: N.G4, dur: E }, { freq: N.A4, dur: E }, { freq: N.G4, dur: E }, { freq: N.F4, dur: E }, { freq: N.E4, dur: H },
-      { freq: N.F4, dur: E }, { freq: N.F4, dur: E }, { freq: N.F4, dur: E }, { freq: N.F4, dur: E }, { freq: N.G4, dur: E }, { freq: N.F4, dur: E }, { freq: N.E4, dur: E }, { freq: N.D4, dur: H },
-      { freq: N.E4, dur: E }, { freq: N.F4, dur: E }, { freq: N.G4, dur: E }, { freq: N.A4, dur: Q }, { freq: N.A4, dur: Q }, { freq: N.A4, dur: H },
-      { freq: N.G4, dur: E }, { freq: N.F4, dur: E }, { freq: N.E4, dur: E }, { freq: N.D4, dur: E }, { freq: N.C4, dur: H },
     ],
   },
 ]
@@ -525,11 +187,18 @@ export function PopularSongs({ onComplete, onExit }: Props) {
   const [isSuccess, setIsSuccess] = useState(false)
   const isAdvancingRef = useRef(false)
   const timersRef = useRef<number[]>([])
+  const melodyEndTimeRef = useRef<number>(0)
+  const promptTimerRef = useRef<number | null>(null)
 
   const clearAllTimers = () => {
     timersRef.current.forEach((t) => clearTimeout(t))
     timersRef.current = []
+    if (promptTimerRef.current) {
+      clearTimeout(promptTimerRef.current)
+      promptTimerRef.current = null
+    }
     sound.stopMelody()
+    melodyEndTimeRef.current = 0
   }
 
   const initSession = () => {
@@ -564,20 +233,16 @@ export function PopularSongs({ onComplete, onExit }: Props) {
     setIsPlayingMelody(false)
     isAdvancingRef.current = false
 
-    const speakPrompt = () => {
-      const promptText = pickRandom(SONG_INTRO_PHRASES)
-      speech.speak(promptText)
-    }
-
     const t1 = window.setTimeout(() => {
-      // Play the full recognizable melody of the song, then speak the prompt
+      // Play the full recognizable melody of the song
       setIsPlayingMelody(true)
       const melodyMs = sound.playMelody(current.melody)
-      const t2 = window.setTimeout(() => {
+      melodyEndTimeRef.current = Date.now() + melodyMs
+
+      const tMelodyEnd = window.setTimeout(() => {
         setIsPlayingMelody(false)
-        speakPrompt()
-      }, melodyMs + 200)
-      timersRef.current.push(t2)
+      }, melodyMs)
+      timersRef.current.push(tMelodyEnd)
     }, 200)
     timersRef.current.push(t1)
 
@@ -592,11 +257,12 @@ export function PopularSongs({ onComplete, onExit }: Props) {
   const currentSong = sessionSongs[roundIdx] || sessionSongs[0]
 
   const handleListenMelody = () => {
-    if (!currentSong.melody) return
+    if (!currentSong.melody || isAdvancingRef.current) return
     clearAllTimers()
     speech.stop()
     setIsPlayingMelody(true)
     const ms = sound.playMelody(currentSong.melody)
+    melodyEndTimeRef.current = Date.now() + ms
     const t = window.setTimeout(() => setIsPlayingMelody(false), ms)
     timersRef.current.push(t)
   }
@@ -605,10 +271,15 @@ export function PopularSongs({ onComplete, onExit }: Props) {
     if (isAdvancingRef.current) return
     setSelectedOpt(opt)
 
+    // Si había un temporizador para recitar la pregunta de intro, lo cancelamos
+    if (promptTimerRef.current) {
+      clearTimeout(promptTimerRef.current)
+      promptTimerRef.current = null
+    }
+
     if (opt === currentSong.correctWord) {
       isAdvancingRef.current = true
-      clearAllTimers()
-      speech.stop()
+      speech.stop() // Detenemos la voz si estuviera hablando
 
       const cleanStart = currentSong.verseStart.replace(/[«»]/g, '').replace(/\.{3}/g, '').trim()
       const cleanEnd = currentSong.correctWord.replace(/\.{3}/g, '').trim()
@@ -637,19 +308,25 @@ export function PopularSongs({ onComplete, onExit }: Props) {
         timersRef.current.push(fallback)
       }
 
-      if (currentSong.melody) {
-        setIsPlayingMelody(true)
-        const melodyMs = sound.playMelody(currentSong.melody)
-        const t = window.setTimeout(speakCongrats, melodyMs + 150)
+      // Verificamos si la canción sigue sonando actualmente y cuánto le queda
+      const now = Date.now()
+      const remainingMelodyMs = melodyEndTimeRef.current - now
+
+      if (remainingMelodyMs > 100) {
+        // La canción NO ha terminado: no la reiniciamos.
+        // Esperamos a que termine su reproducción actual y damos la felicitación al final.
+        const t = window.setTimeout(() => {
+          speakCongrats()
+        }, remainingMelodyMs + 150)
         timersRef.current.push(t)
       } else {
+        // La canción YA ha terminado: no la empezamos de nuevo.
+        // Reproducimos un breve sonido de éxito y damos el mensaje de felicitación de inmediato.
         sound.playSuccess()
-        const t = window.setTimeout(speakCongrats, 500)
+        const t = window.setTimeout(speakCongrats, 400)
         timersRef.current.push(t)
       }
     } else {
-      sound.stopMelody()
-      setIsPlayingMelody(false)
       sound.playGentleRetry()
       const retry = pickRandom(GENERAL_RETRIES)
       setFeedback('Esa palabra no es de la canción. Prueba con otra.')

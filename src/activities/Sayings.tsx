@@ -262,11 +262,6 @@ export function Sayings({ onComplete, onExit }: Props) {
     const wrong = item.wrong[0]
     const opts = [item.correct, wrong].sort(() => 0.5 - Math.random())
     setOptions(opts)
-
-    // Automatically speak the prompt for this saying with varied phrasing
-    const cleanStart = item.start.replace(/\.{3}/g, '').trim()
-    const introVoice = pickRandom(SAYINGS_VOICES.intro)(cleanStart)
-    speech.speak(introVoice)
   }
 
   const initGame = () => {
@@ -326,21 +321,18 @@ export function Sayings({ onComplete, onExit }: Props) {
       sound.playSuccess()
       setFeedback('¡Correcto!')
 
-      const cleanStart = current.start.replace(/\.{3}/g, '').trim()
-      const cleanCorrect = current.correct.replace(/\.{3}/g, '').trim()
       const praiseHeader = pickRandom(SAYINGS_VOICES.correctPraise)
-      const fullText = `${praiseHeader} ${cleanStart} ${cleanCorrect}`
 
-      // Wait until the voice finishes speaking before advancing
-      const fullDuration = speech.estimateDurationMs(fullText)
-      speech.speak(fullText, () => {
+      // Only speak the praise message without reciting the whole on-screen proverb
+      const praiseDuration = speech.estimateDurationMs(praiseHeader)
+      speech.speak(praiseHeader, () => {
         handleNextStep(round, sessionSayings.length)
       })
 
       // Fallback in case audio is interrupted
       fallbackTimerRef.current = window.setTimeout(() => {
         handleNextStep(round, sessionSayings.length)
-      }, fullDuration + 2500)
+      }, praiseDuration + 2500)
     } else {
       sound.playGentleRetry()
       const retryVoice = pickRandom(SAYINGS_VOICES.wrong)
