@@ -59,3 +59,29 @@ button:focus-visible {
   animation: none !important;
   transform: scale(0.96) !important;
 }
+
+/* Gentle, non-intrusive glow pulse for the Back ("Volver") button */
+@keyframes back-button-glow {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow:
+      0 2px 8px 0 rgba(220, 38, 38, 0.2),
+      0 0 4px 0 rgba(239, 68, 68, 0.12);
+  }
+  50% {
+    transform: scale(1.025);
+    box-shadow:
+      0 4px 16px 2px rgba(220, 38, 38, 0.38),
+      0 0 14px 4px rgba(248, 113, 113, 0.28);
+  }
+}
+
+.animate-back-glow {
+  animation: back-button-glow 2.8s infinite ease-in-out;
+  transform-origin: center center;
+}
+
+.animate-back-glow:active {
+  animation: none !important;
+  transform: scale(0.96) !important;
+}
