@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { ArrowLeft } from 'lucide-react'
 import type { ActivityId, ActivityMeta } from './types'
 import { ACTIVITIES } from './data/activities'
@@ -34,14 +34,46 @@ import { SyllableWords } from './activities/SyllableWords'
 import { TidyHome } from './activities/TidyHome'
 import { CaceresTierra } from './activities/CaceresTierra'
 
-// Select 10 activities for the home grid, always keeping 'caceres-tierra' pinned first
+const LAST_HOME_GAMES_KEY = 'memoria_viva_last_home_games'
+
+function shuffleArray<T>(items: T[]): T[] {
+  const copy = [...items]
+  for (let i = copy.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1))
+    ;[copy[i], copy[j]] = [copy[j], copy[i]]
+  }
+  return copy
+}
+
+// Always keep 'caceres-tierra' first (#1) and rotate the remaining 9 games every time the app opens
 function pickRandomActivities(count = 10): ActivityMeta[] {
   const pinned = ACTIVITIES.find((a) => a.id === 'caceres-tierra')
-  const rest = ACTIVITIES.filter((a) => a.id !== 'caceres-tierra').sort(
-    () => 0.5 - Math.random(),
-  )
-  if (!pinned) return rest.slice(0, count)
-  return [pinned, ...rest.slice(0, count - 1)]
+  const pool = ACTIVITIES.filter((a) => a.id !== 'caceres-tierra')
+  const needed = pinned ? count - 1 : count
+
+  let lastIds: string[] = []
+  try {
+    const raw = localStorage.getItem(LAST_HOME_GAMES_KEY)
+    if (raw) lastIds = JSON.parse(raw)
+  } catch {
+    // ignore storage errors
+  }
+
+  // Prioritize games that were NOT shown on the previous open so every open feels genuinely different
+  const freshPool = shuffleArray(pool.filter((a) => !lastIds.includes(a.id)))
+  const prevPool = shuffleArray(pool.filter((a) => lastIds.includes(a.id)))
+  const pickedRest = shuffleArray([...freshPool, ...prevPool].slice(0, needed))
+
+  try {
+    localStorage.setItem(
+      LAST_HOME_GAMES_KEY,
+      JSON.stringify(pickedRest.map((a) => a.id)),
+    )
+  } catch {
+    // ignore storage errors
+  }
+
+  return pinned ? [pinned, ...pickedRest] : pickedRest
 }
 
 function getActivityMaxWidth(id: ActivityId | null): string {
@@ -67,7 +99,33 @@ export function App() {
   const params = new URLSearchParams(window.location.search)
   const initialActivity = (params.get('activity') as ActivityId) || null
   const [currentActivity, setCurrentActivity] = useState<ActivityId | null>(initialActivity)
-  const [dailyActivities] = useState<ActivityMeta[]>(() => pickRandomActivities(10))
+  const [dailyActivities, setDailyActivities] = useState<ActivityMeta[]>(() =>
+    pickRandomActivities(10),
+  )
+  const currentActivityRef = useRef<ActivityId | null>(initialActivity)
+  currentActivityRef.current = currentActivity
+
+  // Refresh the 9 accompanying games whenever the app is reopened from background / BFCache on mobile
+  useEffect(() => {
+    const handlePageShow = (e: PageTransitionEvent) => {
+      if (e.persisted && !currentActivityRef.current) {
+        setDailyActivities(pickRandomActivities(10))
+      }
+    }
+
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === 'visible' && !currentActivityRef.current) {
+        setDailyActivities(pickRandomActivities(10))
+      }
+    }
+
+    window.addEventListener('pageshow', handlePageShow)
+    document.addEventListener('visibilitychange', handleVisibilityChange)
+    return () => {
+      window.removeEventListener('pageshow', handlePageShow)
+      document.removeEventListener('visibilitychange', handleVisibilityChange)
+    }
+  }, [])
 
   const handleSelectActivity = (id: ActivityId) => {
     resetMistakes()
