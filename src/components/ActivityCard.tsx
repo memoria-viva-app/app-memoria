@@ -193,7 +193,12 @@ export function ActivityCard({
       }}
       style={
         onLongPressIcon
-          ? { WebkitTouchCallout: 'none', WebkitUserSelect: 'none', userSelect: 'none' }
+          ? {
+              WebkitTouchCallout: 'none',
+              WebkitUserSelect: 'none',
+              userSelect: 'none',
+              touchAction: 'none',
+            }
           : undefined
       }
       role="button"
