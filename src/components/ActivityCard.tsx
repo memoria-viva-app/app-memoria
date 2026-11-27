@@ -20,6 +20,7 @@ import {
   Compass,
   Puzzle,
   Armchair,
+  Landmark,
 } from 'lucide-react'
 import type { ActivityMeta } from '../types'
 import { sound } from '../services/sound'
@@ -50,6 +51,7 @@ const ICON_MAP: Record<string, React.ElementType> = {
   Compass,
   Puzzle,
   Armchair,
+  Landmark,
 }
 
 export function ActivityCard({ activity, onSelect }: Props) {

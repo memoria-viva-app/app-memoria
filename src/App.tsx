@@ -32,11 +32,16 @@ import { DominoMatch } from './activities/DominoMatch'
 import { SpainJourney } from './activities/SpainJourney'
 import { SyllableWords } from './activities/SyllableWords'
 import { TidyHome } from './activities/TidyHome'
+import { CaceresTierra } from './activities/CaceresTierra'
 
-// Select 10 random distinct activities from the total available pool
+// Select 10 activities for the home grid, always keeping 'caceres-tierra' pinned first
 function pickRandomActivities(count = 10): ActivityMeta[] {
-  const shuffled = [...ACTIVITIES].sort(() => 0.5 - Math.random())
-  return shuffled.slice(0, count)
+  const pinned = ACTIVITIES.find((a) => a.id === 'caceres-tierra')
+  const rest = ACTIVITIES.filter((a) => a.id !== 'caceres-tierra').sort(
+    () => 0.5 - Math.random(),
+  )
+  if (!pinned) return rest.slice(0, count)
+  return [pinned, ...rest.slice(0, count - 1)]
 }
 
 function getActivityMaxWidth(id: ActivityId | null): string {
@@ -240,6 +245,12 @@ export function App() {
             {currentActivity === 'tidy-home' && (
               <TidyHome
                 onComplete={() => handleCompleteActivity('tidy-home')}
+                onExit={handleBackToMenu}
+              />
+            )}
+            {currentActivity === 'caceres-tierra' && (
+              <CaceresTierra
+                onComplete={() => handleCompleteActivity('caceres-tierra')}
                 onExit={handleBackToMenu}
               />
             )}

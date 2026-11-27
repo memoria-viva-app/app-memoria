@@ -21,6 +21,7 @@ export type ActivityId =
   | 'spain-journey'
   | 'syllable-words'
   | 'tidy-home'
+  | 'caceres-tierra'
 
 export interface ActivityMeta {
   id: ActivityId

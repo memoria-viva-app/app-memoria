@@ -248,4 +248,16 @@ export const ACTIVITIES: ActivityMeta[] = [
     borderColor: 'border-cyan-400',
     description: 'Guarda cada objeto en su lugar de la casa.',
   },
+  {
+    id: 'caceres-tierra',
+    batch: 1,
+    title: 'De Cáceres a Herrera',
+    subtitle: 'Fotos, habla y recetas',
+    category: 'Memoria',
+    iconName: 'Landmark',
+    color: 'from-emerald-600 to-amber-600',
+    bgColor: 'bg-emerald-50',
+    borderColor: 'border-emerald-500',
+    description: 'Reconoce rincones en foto, expresiones, fiestas y recetas de Cáceres y Herrera de Alcántara.',
+  },
 ]
