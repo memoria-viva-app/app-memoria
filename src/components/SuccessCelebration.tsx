@@ -80,7 +80,8 @@ export function SuccessCelebration({
     return pickOne(PERSEVERANCE)
   })
 
-  const narration = `${content.title}. ${content.message}`
+  // Speak only the short celebration title aloud (never the full descriptive paragraph)
+  const narration = content.title
   const onHomeRef = useRef(onHome)
   onHomeRef.current = onHome
 
@@ -106,16 +107,16 @@ export function SuccessCelebration({
       // ignore
     }
 
-    // Automatically speak the celebration right as the victory melody finishes (~2.3s),
+    // Automatically speak only the celebration title right as the victory melody finishes (~2.3s),
     // and return automatically to the main menu once the voice finishes speaking.
     const speakTimer = window.setTimeout(() => {
       speech.speak(narration, () => {
-        postSpeechTimer = window.setTimeout(goHomeOnce, 600)
+        postSpeechTimer = window.setTimeout(goHomeOnce, 1000)
       })
     }, 2300)
 
     // Safety fallback in case browser speech synthesis does not fire onend
-    const fallbackMs = 2300 + Math.max(3500, speech.estimateDurationMs(narration) + 2000)
+    const fallbackMs = 2300 + Math.max(2800, speech.estimateDurationMs(narration) + 1800)
     const fallbackTimer = window.setTimeout(goHomeOnce, fallbackMs)
 
     return () => {
