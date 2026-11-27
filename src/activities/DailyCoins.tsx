@@ -297,7 +297,7 @@ export function DailyCoins({ onComplete, onExit }: Props) {
           <div
             className={`${baseClasses} w-full h-full min-h-0 bg-gradient-to-br from-stone-200 via-stone-300 to-stone-400 border-3 sm:border-4 border-amber-500 hover:border-amber-600 active:scale-95`}
           >
-            <div className="h-[88%] aspect-square min-w-14 min-h-14 sm:min-w-20 sm:min-h-20 max-h-28 shrink-0 rounded-full bg-gradient-to-br from-amber-300 to-amber-500 border-4 sm:border-[6px] border-amber-600 ring-3 sm:ring-4 ring-stone-300 flex items-center justify-center shadow-md">
+            <div className="h-[88%] aspect-square min-w-11 min-h-11 sm:min-w-14 sm:min-h-14 max-h-28 shrink-0 rounded-full bg-gradient-to-br from-amber-300 to-amber-500 border-4 sm:border-[6px] border-amber-600 ring-3 sm:ring-4 ring-stone-300 flex items-center justify-center shadow-md">
               <span className="text-amber-950 text-2xl sm:text-4xl md:text-5xl font-black tracking-tighter leading-none">
                 2€
               </span>
@@ -313,7 +313,7 @@ export function DailyCoins({ onComplete, onExit }: Props) {
           <div
             className={`${baseClasses} w-full h-full min-h-0 bg-gradient-to-br from-amber-300 via-amber-400 to-amber-500 border-3 sm:border-4 border-stone-400 hover:border-stone-600 active:scale-95`}
           >
-            <div className="h-[88%] aspect-square min-w-14 min-h-14 sm:min-w-20 sm:min-h-20 max-h-28 shrink-0 rounded-full bg-gradient-to-br from-stone-100 to-stone-300 border-4 sm:border-[6px] border-stone-500 ring-3 sm:ring-4 ring-amber-400 flex items-center justify-center shadow-md">
+            <div className="h-[88%] aspect-square min-w-11 min-h-11 sm:min-w-14 sm:min-h-14 max-h-28 shrink-0 rounded-full bg-gradient-to-br from-stone-100 to-stone-300 border-4 sm:border-[6px] border-stone-500 ring-3 sm:ring-4 ring-amber-400 flex items-center justify-center shadow-md">
               <span className="text-stone-900 text-2xl sm:text-4xl md:text-5xl font-black tracking-tighter leading-none">
                 1€
               </span>
@@ -329,7 +329,7 @@ export function DailyCoins({ onComplete, onExit }: Props) {
           <div
             className={`${baseClasses} w-full h-full min-h-0 bg-gradient-to-br from-amber-200 via-amber-300 to-amber-400 border-3 sm:border-4 border-amber-600 hover:border-amber-700 active:scale-95`}
           >
-            <div className="h-[88%] aspect-square min-w-14 min-h-14 sm:min-w-20 sm:min-h-20 max-h-28 shrink-0 rounded-full bg-gradient-to-br from-amber-100 to-amber-300 border-4 sm:border-[6px] border-amber-600 flex items-center justify-center shadow-md">
+            <div className="h-[88%] aspect-square min-w-11 min-h-11 sm:min-w-14 sm:min-h-14 max-h-28 shrink-0 rounded-full bg-gradient-to-br from-amber-100 to-amber-300 border-4 sm:border-[6px] border-amber-600 flex items-center justify-center shadow-md">
               <span className="text-amber-950 text-2xl sm:text-4xl md:text-5xl font-black tracking-tighter leading-none">
                 50c
               </span>
@@ -345,7 +345,7 @@ export function DailyCoins({ onComplete, onExit }: Props) {
           <div
             className={`${baseClasses} w-full h-full min-h-0 bg-gradient-to-br from-amber-200 via-amber-300 to-amber-400 border-3 sm:border-4 border-amber-500 hover:border-amber-600 active:scale-95`}
           >
-            <div className="h-[88%] aspect-square min-w-14 min-h-14 sm:min-w-20 sm:min-h-20 max-h-28 shrink-0 rounded-full bg-gradient-to-br from-amber-100 to-amber-300 border-4 sm:border-[6px] border-amber-500 flex items-center justify-center shadow-md">
+            <div className="h-[88%] aspect-square min-w-11 min-h-11 sm:min-w-14 sm:min-h-14 max-h-28 shrink-0 rounded-full bg-gradient-to-br from-amber-100 to-amber-300 border-4 sm:border-[6px] border-amber-500 flex items-center justify-center shadow-md">
               <span className="text-amber-950 text-2xl sm:text-4xl md:text-5xl font-black tracking-tighter leading-none">
                 20c
               </span>
@@ -361,7 +361,7 @@ export function DailyCoins({ onComplete, onExit }: Props) {
           <div
             className={`${baseClasses} w-full h-full min-h-0 bg-gradient-to-br from-amber-200 via-amber-300 to-amber-400 border-3 sm:border-4 border-amber-500 hover:border-amber-600 active:scale-95`}
           >
-            <div className="h-[88%] aspect-square min-w-14 min-h-14 sm:min-w-20 sm:min-h-20 max-h-28 shrink-0 rounded-full bg-gradient-to-br from-amber-100 to-amber-300 border-4 sm:border-[6px] border-amber-500 flex items-center justify-center shadow-md">
+            <div className="h-[88%] aspect-square min-w-11 min-h-11 sm:min-w-14 sm:min-h-14 max-h-28 shrink-0 rounded-full bg-gradient-to-br from-amber-100 to-amber-300 border-4 sm:border-[6px] border-amber-500 flex items-center justify-center shadow-md">
               <span className="text-amber-950 text-2xl sm:text-4xl md:text-5xl font-black tracking-tighter leading-none">
                 10c
               </span>
@@ -378,7 +378,7 @@ export function DailyCoins({ onComplete, onExit }: Props) {
           <div
             className={`${baseClasses} w-full h-full min-h-0 bg-gradient-to-br from-orange-200 via-orange-300 to-orange-400 border-3 sm:border-4 border-orange-700 hover:border-orange-800 active:scale-95`}
           >
-            <div className="h-[88%] aspect-square min-w-14 min-h-14 sm:min-w-20 sm:min-h-20 max-h-28 shrink-0 rounded-full bg-gradient-to-br from-orange-100 to-orange-300 border-4 sm:border-[6px] border-orange-600 flex items-center justify-center shadow-md">
+            <div className="h-[88%] aspect-square min-w-11 min-h-11 sm:min-w-14 sm:min-h-14 max-h-28 shrink-0 rounded-full bg-gradient-to-br from-orange-100 to-orange-300 border-4 sm:border-[6px] border-orange-600 flex items-center justify-center shadow-md">
               <span className="text-orange-950 text-2xl sm:text-4xl md:text-5xl font-black tracking-tighter leading-none">
                 5c
               </span>

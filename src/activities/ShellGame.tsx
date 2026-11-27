@@ -235,7 +235,7 @@ export function ShellGame({ onComplete, onExit }: Props) {
 
         {/* Green Felt Table with Animated Cups */}
         <div className="relative flex-1 min-h-0 w-full bg-gradient-to-b from-emerald-800 to-emerald-950 rounded-3xl border-4 sm:border-[6px] border-amber-800 shadow-inner flex items-center overflow-hidden px-2 sm:px-6">
-          <div className="relative w-full h-56 sm:h-72 flex items-center">
+          <div className="relative w-full h-48 sm:h-64 md:h-72 flex items-center">
             {Array.from({ length: config.cupCount }, (_, cupId) => {
               const slotIdx = cupSlots[cupId] ?? cupId
               const isLifted = liftedCups.includes(cupId)
@@ -251,16 +251,16 @@ export function ShellGame({ onComplete, onExit }: Props) {
                     left: `${leftPct}%`,
                     transition: `left ${config.swapMs * 0.88}ms cubic-bezier(0.4, 0, 0.2, 1)`,
                   }}
-                  className="absolute inset-y-0 flex flex-col items-center justify-end pb-4 sm:pb-6 px-1 sm:px-3"
+                  className="absolute inset-y-0 flex flex-col items-center justify-end pb-3 sm:pb-6 px-1 sm:px-3"
                 >
                   {/* Ball sitting on the table */}
                   {hasBall && (
                     <div
-                      className={`absolute bottom-5 sm:bottom-8 w-14 h-14 sm:w-20 sm:h-20 md:w-24 md:h-24 rounded-full bg-gradient-to-br from-red-400 via-red-600 to-red-800 border-4 border-white shadow-xl flex items-center justify-center transition-opacity duration-150 ${
+                      className={`absolute bottom-4 sm:bottom-8 w-12 h-12 sm:w-20 sm:h-20 md:w-24 md:h-24 rounded-full bg-gradient-to-br from-red-400 via-red-600 to-red-800 border-4 border-white shadow-xl flex items-center justify-center transition-opacity duration-150 ${
                         isLifted ? 'opacity-100 scale-100' : 'opacity-0 scale-75'
                       }`}
                     >
-                      <div className="w-4 h-4 sm:w-6 sm:h-6 rounded-full bg-white/70 -translate-x-2 -translate-y-2" />
+                      <div className="w-3.5 h-3.5 sm:w-6 sm:h-6 rounded-full bg-white/70 -translate-x-2 -translate-y-2" />
                     </div>
                   )}
 
@@ -269,8 +269,8 @@ export function ShellGame({ onComplete, onExit }: Props) {
                     onClick={() => handleSelectCup(cupId)}
                     disabled={phase !== 'guessing'}
                     aria-label={`Vaso ${slotIdx + 1}`}
-                    className={`relative z-10 w-full max-w-[140px] sm:max-w-[190px] h-36 sm:h-52 flex flex-col items-center justify-between cursor-pointer select-none transition-transform duration-300 ease-out ${
-                      isLifted ? '-translate-y-20 sm:-translate-y-28' : 'translate-y-0'
+                    className={`relative z-10 w-full max-w-[130px] sm:max-w-[185px] h-32 sm:h-44 md:h-52 flex flex-col items-center justify-between cursor-pointer select-none transition-transform duration-300 ease-out ${
+                      isLifted ? '-translate-y-16 sm:-translate-y-24 md:-translate-y-28' : 'translate-y-0'
                     } ${phase === 'guessing' ? 'hover:scale-105 active:scale-95' : ''}`}
                   >
                     <div className="w-[82%] h-full bg-gradient-to-r from-amber-500 via-amber-300 to-amber-600 rounded-t-3xl border-4 sm:border-[5px] border-amber-950 shadow-2xl flex flex-col items-center justify-center">

@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { ArrowLeft } from 'lucide-react'
 import type { ActivityId, ActivityMeta } from './types'
 import { ACTIVITIES } from './data/activities'
 import { recordActivityCompletion } from './services/storage'
@@ -38,6 +39,25 @@ function pickRandomActivities(count = 10): ActivityMeta[] {
   return shuffled.slice(0, count)
 }
 
+function getActivityMaxWidth(id: ActivityId | null): string {
+  switch (id) {
+    case 'faces-and-names':
+    case 'odd-one-out':
+    case 'sayings':
+    case 'spot-object':
+    case 'step-order':
+    case 'sweet-piano':
+      return 'max-w-2xl'
+    case 'memory-pairs':
+    case 'where-was-it':
+      return 'max-w-2xl sm:max-w-3xl'
+    case 'shopping-list':
+      return 'max-w-3xl'
+    default:
+      return 'max-w-4xl'
+  }
+}
+
 export function App() {
   const params = new URLSearchParams(window.location.search)
   const initialActivity = (params.get('activity') as ActivityId) || null
@@ -65,15 +85,18 @@ export function App() {
 
   return (
     <div className="h-[100dvh] flex flex-col bg-[#FDFBF7] text-stone-900 overflow-hidden select-none">
-      {/* Simplified Header */}
+      {/* Compact Top Title Header */}
       <Header
         title={activeActivityMeta ? activeActivityMeta.title : undefined}
         subtitle={activeActivityMeta ? activeActivityMeta.subtitle : undefined}
-        onBack={currentActivity ? handleBackToMenu : undefined}
       />
 
-      {/* Main Container - 100% full height zero-scroll on mobile, smoothly adaptable on tablet/desktop */}
-      <main className="flex-1 flex flex-col min-h-0 max-w-4xl mx-auto w-full px-2 sm:px-6 py-1.5 sm:py-4 overflow-hidden sm:overflow-y-auto">
+      {/* Main Container - 100% full height zero-scroll on mobile, tightly fitted with minimal empty gaps */}
+      <main
+        className={`flex-1 flex flex-col min-h-0 max-w-4xl mx-auto w-full px-2 sm:px-6 overflow-hidden sm:overflow-y-auto ${
+          currentActivity ? 'pt-1 pb-1 sm:pt-2 sm:pb-1.5' : 'py-1.5 sm:py-4'
+        }`}
+      >
         {!currentActivity ? (
           /* Catalog View - Super Clean, 100% full screen on mobile without scroll */
           <div className="flex-1 flex flex-col min-h-0 gap-2 sm:gap-3 overflow-hidden">
@@ -223,6 +246,24 @@ export function App() {
           </div>
         )}
       </main>
+
+      {/* Bottom Back Button Bar — aligned with active game width, zero empty side gaps */}
+      {currentActivity && (
+        <footer className="shrink-0 z-30 bg-[#FDFBF7] px-2.5 sm:px-6 pt-1 pb-[max(0.5rem,env(safe-area-inset-bottom))] sm:pt-1.5 sm:pb-3">
+          <div className="max-w-4xl mx-auto w-full">
+            <div className={`${getActivityMaxWidth(currentActivity)} mx-auto w-full px-0.5`}>
+              <button
+                onClick={handleBackToMenu}
+                className="animate-back-glow w-full flex items-center justify-center gap-2 sm:gap-3 px-5 py-2 sm:py-2.5 bg-red-600 hover:bg-red-700 text-white rounded-2xl font-black text-xl sm:text-2xl border-2 sm:border-3 border-red-700 transition-colors cursor-pointer min-h-[48px] sm:min-h-[56px]"
+                aria-label="Volver al menú principal"
+              >
+                <ArrowLeft className="w-6 h-6 sm:w-7 sm:h-7 text-white stroke-[3]" />
+                <span>Volver</span>
+              </button>
+            </div>
+          </div>
+        </footer>
+      )}
     </div>
   )
 }
