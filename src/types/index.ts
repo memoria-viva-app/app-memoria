@@ -22,6 +22,7 @@ export type ActivityId =
   | 'syllable-words'
   | 'tidy-home'
   | 'caceres-tierra'
+  | 'guarena-tierra'
 
 export interface ActivityMeta {
   id: ActivityId

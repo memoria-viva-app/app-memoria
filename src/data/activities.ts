@@ -260,4 +260,16 @@ export const ACTIVITIES: ActivityMeta[] = [
     borderColor: 'border-emerald-500',
     description: 'Reconoce rincones en foto, expresiones, fiestas y recetas de Cáceres y Herrera de Alcántara.',
   },
+  {
+    id: 'guarena-tierra',
+    batch: 1,
+    title: 'Nuestra Guareña',
+    subtitle: 'Fotos, castúo y recetas',
+    category: 'Memoria',
+    iconName: 'Landmark',
+    color: 'from-amber-600 to-emerald-700',
+    bgColor: 'bg-amber-50',
+    borderColor: 'border-amber-500',
+    description: 'Reconoce rincones, el castúo de Luis Chamizo, fiestas y recetas de Guareña.',
+  },
 ]

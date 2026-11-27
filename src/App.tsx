@@ -33,8 +33,26 @@ import { SpainJourney } from './activities/SpainJourney'
 import { SyllableWords } from './activities/SyllableWords'
 import { TidyHome } from './activities/TidyHome'
 import { CaceresTierra } from './activities/CaceresTierra'
+import { GuarenaTierra } from './activities/GuarenaTierra'
+
+type LocalEdition = 'caceres' | 'guarena'
 
 const LAST_HOME_GAMES_KEY = 'memoria_viva_last_home_games'
+const LOCAL_EDITION_KEY = 'memoria_viva_local_edition'
+
+function getSavedLocalEdition(): LocalEdition {
+  try {
+    return localStorage.getItem(LOCAL_EDITION_KEY) === 'guarena'
+      ? 'guarena'
+      : 'caceres'
+  } catch {
+    return 'caceres'
+  }
+}
+
+function getPinnedActivityId(edition: LocalEdition): ActivityId {
+  return edition === 'guarena' ? 'guarena-tierra' : 'caceres-tierra'
+}
 
 function shuffleArray<T>(items: T[]): T[] {
   const copy = [...items]
@@ -45,10 +63,17 @@ function shuffleArray<T>(items: T[]): T[] {
   return copy
 }
 
-// Always keep 'caceres-tierra' first (#1) and rotate the remaining 9 games every time the app opens
-function pickRandomActivities(count = 10): ActivityMeta[] {
-  const pinned = ACTIVITIES.find((a) => a.id === 'caceres-tierra')
-  const pool = ACTIVITIES.filter((a) => a.id !== 'caceres-tierra')
+// Always keep the active local town edition ('caceres-tierra' or 'guarena-tierra') first (#1)
+// and rotate the remaining 9 games every time the app opens
+function pickRandomActivities(
+  count = 10,
+  edition: LocalEdition = getSavedLocalEdition(),
+): ActivityMeta[] {
+  const pinnedId = getPinnedActivityId(edition)
+  const pinned = ACTIVITIES.find((a) => a.id === pinnedId)
+  const pool = ACTIVITIES.filter(
+    (a) => a.id !== 'caceres-tierra' && a.id !== 'guarena-tierra',
+  )
   const needed = pinned ? count - 1 : count
 
   let lastIds: string[] = []
@@ -99,23 +124,29 @@ export function App() {
   const params = new URLSearchParams(window.location.search)
   const initialActivity = (params.get('activity') as ActivityId) || null
   const [currentActivity, setCurrentActivity] = useState<ActivityId | null>(initialActivity)
+  const [, setLocalEdition] = useState<LocalEdition>(() =>
+    getSavedLocalEdition(),
+  )
   const [dailyActivities, setDailyActivities] = useState<ActivityMeta[]>(() =>
     pickRandomActivities(10),
   )
   const currentActivityRef = useRef<ActivityId | null>(initialActivity)
-  currentActivityRef.current = currentActivity
+
+  useEffect(() => {
+    currentActivityRef.current = currentActivity
+  }, [currentActivity])
 
   // Refresh the 9 accompanying games whenever the app is reopened from background / BFCache on mobile
   useEffect(() => {
     const handlePageShow = (e: PageTransitionEvent) => {
       if (e.persisted && !currentActivityRef.current) {
-        setDailyActivities(pickRandomActivities(10))
+        setDailyActivities(pickRandomActivities(10, getSavedLocalEdition()))
       }
     }
 
     const handleVisibilityChange = () => {
       if (document.visibilityState === 'visible' && !currentActivityRef.current) {
-        setDailyActivities(pickRandomActivities(10))
+        setDailyActivities(pickRandomActivities(10, getSavedLocalEdition()))
       }
     }
 
@@ -126,6 +157,27 @@ export function App() {
       document.removeEventListener('visibilitychange', handleVisibilityChange)
     }
   }, [])
+
+  // Switch between Cáceres and Guareña after holding the icon for >= 5 seconds
+  const handleToggleLocalEdition = () => {
+    setLocalEdition((prevEdition) => {
+      const nextEdition: LocalEdition =
+        prevEdition === 'caceres' ? 'guarena' : 'caceres'
+      try {
+        localStorage.setItem(LOCAL_EDITION_KEY, nextEdition)
+      } catch {
+        // ignore storage errors
+      }
+      sound.playSuccess()
+      const nextPinned = ACTIVITIES.find(
+        (a) => a.id === getPinnedActivityId(nextEdition),
+      )
+      if (nextPinned) {
+        setDailyActivities((prev) => [nextPinned, ...prev.slice(1)])
+      }
+      return nextEdition
+    })
+  }
 
   const handleSelectActivity = (id: ActivityId) => {
     resetMistakes()
@@ -172,13 +224,22 @@ export function App() {
 
             {/* Activities Grid - 2 columns, 5 rows, fills available screen space with 10 random games */}
             <div className="grid grid-cols-2 grid-rows-5 gap-2 sm:gap-3.5 flex-1 min-h-0 w-full">
-              {dailyActivities.map((activity) => (
-                <ActivityCard
-                  key={activity.id}
-                  activity={activity}
-                  onSelect={() => handleSelectActivity(activity.id)}
-                />
-              ))}
+              {dailyActivities.map((activity) => {
+                const isLocalTownCard =
+                  activity.id === 'caceres-tierra' ||
+                  activity.id === 'guarena-tierra'
+                return (
+                  <ActivityCard
+                    key={isLocalTownCard ? 'pinned-local-town' : activity.id}
+                    activity={activity}
+                    onSelect={() => handleSelectActivity(activity.id)}
+                    onLongPressIcon={
+                      isLocalTownCard ? handleToggleLocalEdition : undefined
+                    }
+                    longPressMs={5000}
+                  />
+                )
+              })}
             </div>
           </div>
         ) : (
@@ -309,6 +370,12 @@ export function App() {
             {currentActivity === 'caceres-tierra' && (
               <CaceresTierra
                 onComplete={() => handleCompleteActivity('caceres-tierra')}
+                onExit={handleBackToMenu}
+              />
+            )}
+            {currentActivity === 'guarena-tierra' && (
+              <GuarenaTierra
+                onComplete={() => handleCompleteActivity('guarena-tierra')}
                 onExit={handleBackToMenu}
               />
             )}
