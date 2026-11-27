@@ -284,7 +284,7 @@ export function SweetPiano({ onComplete, onExit }: Props) {
                 <span className="text-3xl sm:text-6xl font-black tracking-wide leading-none">
                   {k.noteName}
                 </span>
-                <span className="font-black text-sm sm:text-2xl uppercase tracking-tight sm:tracking-wide text-center leading-tight w-full truncate">
+                <span className="font-black text-xs sm:text-2xl uppercase tracking-tight sm:tracking-wide text-center leading-tight w-full break-words">
                   {k.label}
                 </span>
               </button>

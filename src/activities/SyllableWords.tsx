@@ -586,7 +586,7 @@ export function SyllableWords({ onComplete, onExit }: Props) {
       <div className="flex-1 flex flex-col justify-between bg-white border-3 sm:border-4 border-indigo-400 rounded-2xl sm:rounded-3xl p-2 sm:p-5 shadow-md text-center min-h-0 overflow-hidden gap-2">
         {/* Cabecera */}
         <div className="flex items-center justify-between gap-2 px-1 shrink-0">
-          <h3 className="text-xl sm:text-3xl font-black text-stone-950 truncate text-left">
+          <h3 className="text-base sm:text-3xl font-black text-stone-950 leading-snug text-left">
             {roundTitles[roundIdx]}
           </h3>
           <span className="px-3 sm:px-5 py-1 sm:py-2 bg-indigo-100 border-2 sm:border-3 border-indigo-400 text-indigo-950 font-black rounded-xl sm:rounded-2xl text-xl sm:text-3xl shrink-0">

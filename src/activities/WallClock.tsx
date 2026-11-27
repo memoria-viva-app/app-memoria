@@ -568,10 +568,10 @@ export function WallClock({ onComplete, onExit }: Props) {
           <div className="flex items-center gap-2 sm:gap-3 min-w-0">
             <span className="text-4xl sm:text-6xl leading-none shrink-0">{currentQ.emoji}</span>
             <div className="text-left min-w-0">
-              <h3 className="text-2xl sm:text-5xl font-black text-stone-950 leading-none">
+              <h3 className="text-xl sm:text-5xl font-black text-stone-950 leading-tight">
                 {currentQ.promptTitle}
               </h3>
-              <p className="text-base sm:text-2xl font-bold text-blue-900 mt-0.5 truncate">
+              <p className="text-sm sm:text-2xl font-bold text-blue-900 mt-0.5 leading-snug">
                 {currentQ.contextNote}
               </p>
             </div>

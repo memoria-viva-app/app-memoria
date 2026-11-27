@@ -98,8 +98,8 @@ const CACERES_PHOTO_ITEMS: TierraQuestion[] = [
   {
     id: 'cc-san-jorge',
     category: 'foto-caceres',
-    prompt: '¿Qué plaza monumental de Cáceres es esta?',
-    clue: 'Su iglesia blanca de dos torres vigila la hornacina del patrón',
+    prompt: '¿En qué plaza monumental de Cáceres está esta escultura?',
+    clue: 'La famosa hornacina de bronce del patrón venciendo al dragón en su escalinata',
     photo: './tierra/plaza-san-jorge.jpg',
     correct: 'La Plaza de San Jorge',
     wrongs: ['La Plaza de las Veletas', 'La Plaza de Santiago', 'La Plaza de San Juan'],
@@ -243,7 +243,7 @@ const COMARCA_PHOTO_ITEMS: TierraQuestion[] = [
     clue: 'Una de las plazas porticadas con arcos y columnas más bonitas de España',
     photo: './tierra/garrovillas.jpg',
     correct: 'Garrovillas de Alconétar',
-    wrongs: [' Pasarón de la Vera', 'Cabezuela del Valle', 'Guadalupe', 'Hervás'],
+    wrongs: ['Pasarón de la Vera', 'Cabezuela del Valle', 'Guadalupe', 'Hervás'],
   },
   {
     id: 'pr-monfrague',
@@ -1126,8 +1126,8 @@ export function CaceresTierra({ onComplete, onExit }: Props) {
         className={`flex-1 flex flex-col justify-between bg-white border-3 sm:border-4 ${meta.borderColor} rounded-2xl sm:rounded-3xl p-2 sm:p-4 shadow-md text-center min-h-0 overflow-hidden gap-1.5 sm:gap-2.5`}
       >
         {/* Barra superior de ronda */}
-        <div className="flex items-center justify-between gap-2 px-1 shrink-0">
-          <h3 className="text-base sm:text-2xl md:text-3xl font-black text-stone-950 text-left leading-tight truncate">
+        <div className="flex items-start sm:items-center justify-between gap-2 px-1 shrink-0">
+          <h3 className="text-base sm:text-2xl md:text-3xl font-black text-stone-950 text-left leading-snug break-words">
             {isPhotoRound ? currentItem.prompt : meta.badge.split('·')[1]?.trim()}
           </h3>
           <span
@@ -1154,22 +1154,22 @@ export function CaceresTierra({ onComplete, onExit }: Props) {
                 className="relative z-10 w-full h-full object-contain select-none"
               />
             </div>
-            <p className="text-xs sm:text-lg md:text-xl font-bold text-stone-700 bg-stone-100 border border-stone-300 rounded-xl px-2.5 py-1 leading-snug shrink-0">
+            <p className="text-xs sm:text-lg md:text-xl font-bold text-stone-700 bg-stone-100 border border-stone-300 rounded-xl px-2.5 py-1 leading-snug break-words shrink-0">
               💡 {currentItem.clue}
             </p>
           </div>
         ) : (
           <div
-            className={`${meta.cardBg} border-2 sm:border-3 rounded-2xl sm:rounded-3xl p-2.5 sm:p-5 flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-4 shrink-0`}
+            className={`${meta.cardBg} border-2 sm:border-3 rounded-2xl sm:rounded-3xl p-2.5 sm:p-5 flex flex-row items-center justify-start sm:justify-center gap-2.5 sm:gap-4 shrink-0`}
           >
-            <span className="text-5xl sm:text-7xl leading-none shrink-0" aria-hidden="true">
+            <span className="text-4xl sm:text-7xl leading-none shrink-0" aria-hidden="true">
               {currentItem.emoji}
             </span>
-            <div className="text-center sm:text-left min-w-0">
-              <p className="font-black text-stone-950 text-lg sm:text-3xl leading-snug">
+            <div className="text-left min-w-0 flex-1">
+              <p className="font-black text-stone-950 text-base sm:text-2xl md:text-3xl leading-snug break-words">
                 {currentItem.prompt}
               </p>
-              <p className="font-bold text-stone-700 text-sm sm:text-xl mt-0.5 sm:mt-1 leading-snug">
+              <p className="font-bold text-stone-700 text-xs sm:text-lg md:text-xl mt-0.5 sm:mt-1 leading-snug break-words">
                 {currentItem.clue}
               </p>
             </div>
@@ -1178,12 +1178,12 @@ export function CaceresTierra({ onComplete, onExit }: Props) {
 
         {/* Mensaje de respuesta */}
         {feedback && (
-          <div className="p-1.5 sm:p-2 rounded-xl bg-amber-100 border-2 border-amber-400 text-amber-950 font-black text-sm sm:text-xl shrink-0">
+          <div className="p-1.5 sm:p-2 rounded-xl bg-amber-100 border-2 border-amber-400 text-amber-950 font-black text-sm sm:text-xl leading-snug break-words shrink-0">
             {feedback}
           </div>
         )}
 
-        {/* Botones de opciones */}
+        {/* Botones de opciones: en móvil siempre a ancho completo (1 columna) para que ningún texto largo se parta ni se corte */}
         <div
           className={`w-full grid gap-1.5 sm:gap-3 items-stretch ${
             isPhotoRound
@@ -1191,8 +1191,8 @@ export function CaceresTierra({ onComplete, onExit }: Props) {
                 ? 'shrink-0 grid-cols-1 sm:grid-cols-2'
                 : 'shrink-0 grid-cols-1 sm:grid-cols-3'
               : options.length === 3
-              ? 'flex-1 min-h-0 grid-cols-1 grid-rows-3'
-              : 'flex-1 min-h-0 grid-cols-2 grid-rows-2'
+              ? 'flex-1 min-h-0 grid-cols-1 grid-rows-3 sm:grid-cols-3 sm:grid-rows-1'
+              : 'flex-1 min-h-0 grid-cols-1 grid-rows-4 sm:grid-cols-2 sm:grid-rows-2'
           }`}
         >
           {options.map((option) => {
@@ -1213,11 +1213,9 @@ export function CaceresTierra({ onComplete, onExit }: Props) {
                 onClick={() => handleSelectOption(option)}
                 className={`w-full h-full rounded-xl sm:rounded-2xl border-2 sm:border-3 px-3 sm:px-4 ${
                   isPhotoRound
-                    ? 'py-2 sm:py-3.5 min-h-[44px] sm:min-h-[60px] text-lg sm:text-2xl'
-                    : options.length === 3
-                    ? 'py-2 px-3 text-lg sm:text-3xl min-h-0'
-                    : 'py-2 px-2.5 text-base sm:text-3xl min-h-0'
-                } flex items-center justify-center text-center font-black leading-tight cursor-pointer transition-all active:scale-95 shadow-xs ${btnClasses}`}
+                    ? 'py-2 sm:py-3 min-h-[42px] sm:min-h-[58px] text-base sm:text-xl md:text-2xl'
+                    : 'py-1.5 sm:py-3 text-base sm:text-2xl md:text-3xl min-h-0'
+                } flex items-center justify-center text-center font-black leading-snug whitespace-normal break-words cursor-pointer transition-all active:scale-95 shadow-xs ${btnClasses}`}
               >
                 {option}
               </button>

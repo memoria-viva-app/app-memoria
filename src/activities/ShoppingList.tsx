@@ -303,7 +303,7 @@ export function ShoppingList({ onComplete, onExit }: Props) {
                 >
                   {item.icon}
                 </span>
-                <span className="font-black text-stone-950 text-xl sm:text-3xl text-center leading-tight w-full px-1 truncate">
+                <span className="font-black text-stone-950 text-lg sm:text-3xl text-center leading-tight w-full px-1 break-words">
                   {item.name}
                 </span>
               </div>
@@ -385,7 +385,7 @@ export function ShoppingList({ onComplete, onExit }: Props) {
                       currentConfig.choiceCount === 6
                         ? 'text-base sm:text-2xl'
                         : 'text-sm sm:text-xl'
-                    } text-center leading-tight w-full px-1 truncate`}
+                    } text-center leading-tight w-full px-1 break-words`}
                   >
                     {item.name}
                   </span>

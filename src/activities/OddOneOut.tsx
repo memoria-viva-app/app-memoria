@@ -365,7 +365,7 @@ export function OddOneOut({ onComplete, onExit }: Props) {
                     <span className="text-5xl sm:text-7xl leading-none shrink-0 animate-in zoom-in-75 duration-200" aria-hidden="true">
                       {card.icon}
                     </span>
-                    <span className="font-black text-stone-950 text-base sm:text-2xl text-center leading-tight w-full px-1 truncate">
+                    <span className="font-black text-stone-950 text-sm sm:text-2xl text-center leading-tight w-full px-1 break-words">
                       {card.name}
                     </span>
                   </>

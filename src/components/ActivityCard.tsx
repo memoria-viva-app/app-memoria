@@ -84,10 +84,10 @@ export function ActivityCard({ activity, onSelect }: Props) {
 
       {/* Big Bold Typography with visible subtitle */}
       <div className="min-w-0 flex-1 flex flex-col justify-center">
-        <h2 className="text-sm sm:text-2xl md:text-3xl font-black text-stone-950 leading-tight line-clamp-2">
+        <h2 className="text-sm sm:text-2xl md:text-3xl font-black text-stone-950 leading-tight break-words">
           {activity.title}
         </h2>
-        <p className="text-xs sm:text-lg md:text-xl font-bold text-stone-600 mt-0.5 leading-snug line-clamp-2">
+        <p className="text-xs sm:text-lg md:text-xl font-bold text-stone-600 mt-0.5 leading-snug break-words">
           {activity.subtitle}
         </p>
       </div>

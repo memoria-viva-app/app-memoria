@@ -233,7 +233,7 @@ export function MemoryPairs({ onComplete, onExit }: Props) {
                 {isFlipped ? (
                   <div className="flex flex-col items-center justify-center gap-1 sm:gap-2 animate-in zoom-in-75 duration-200 w-full h-full overflow-hidden px-1">
                     <span className="text-4xl sm:text-7xl leading-none shrink-0">{card.icon}</span>
-                    <span className="font-black text-stone-950 text-base sm:text-2xl text-center leading-tight w-full truncate">
+                    <span className="font-black text-stone-950 text-sm sm:text-2xl text-center leading-tight w-full break-words">
                       {card.name}
                     </span>
                   </div>
